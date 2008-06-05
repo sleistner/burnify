@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<title>untitled</title>
+	<%= javascript_include_tag 'fusion_charts.js' %>
+</head>
+
+<body>
+  <div id="chartdiv" align="center">The chart will appear within this DIV. This text will be replaced by the chart.</div>
+  <script type="text/javascript">
+      var myChart = new FusionCharts('/swfs/FCF_MSLine.swf', 'myChartId', "600", "500");
+      myChart.setDataURL("/dashboard/data");
+      myChart.render("chartdiv");
+  </script>
+
+</body>
+</html>

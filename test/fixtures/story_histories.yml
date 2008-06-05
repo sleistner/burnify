@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  hours_left: 1
+  story: 
+
+two:
+  hours_left: 1
+  story: 

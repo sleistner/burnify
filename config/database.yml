@@ -1,0 +1,20 @@
+default: &defaults
+  adapter: mysql
+  username: burndown
+  password: burndown
+  encoding: utf8
+  host: 127.0.0.1
+  
+development:
+  database: burndown_development
+  <<: *defaults
+
+test:
+  database: burndown_test
+  <<: *defaults
+
+# production:
+#   <<: *defaults
+#   database: burndown_production
+#   username: wltest
+#   password: wltest
