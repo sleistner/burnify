@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080605150641
+# Schema version: 20080611171750
 #
 # Table name: story_histories
 #
