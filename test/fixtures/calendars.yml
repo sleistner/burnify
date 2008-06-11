@@ -1,9 +1,1 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  name: MyString
-  ics: MyText
-
-two:
-  name: MyString
-  ics: MyText

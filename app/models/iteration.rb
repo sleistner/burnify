@@ -14,14 +14,21 @@
 #
 
 class Iteration < ActiveRecord::Base
+
+  belongs_to :project
+
   validates_presence_of :name
   validates_presence_of :start
   validates_presence_of :deadline
-  
-  validates_uniqueness_of :name
-  
+
+  validates_presence_of :project
+
+  validates_uniqueness_of :name, :scope => :project_id
+
   def validate
-    errors.add(:deadline, "should be greater then #{start}.") if deadline < start
+    if deadline && start
+      errors.add(:deadline, "should be greater then #{start}.") if deadline < start
+    end
   end
-  
+
 end

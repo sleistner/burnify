@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  
+
   rescue_from ActiveRecord::RecordInvalid, :with => :render_invalid_record
 
   # See ActionController::RequestForgeryProtection for details
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
-  
+
   private
 
   def render_invalid_record exception
@@ -26,5 +26,4 @@ class ApplicationController < ActionController::Base
       format.json { render :json => record.errors.full_messages, :status => :unprocessable_entity }
     end
   end
-  
 end

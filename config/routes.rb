@@ -1,7 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
+
   map.root :controller => 'dashboard'
+
   map.resources :iterations
-  
+  map.resources :projects
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
