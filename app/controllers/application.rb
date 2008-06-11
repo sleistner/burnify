@@ -4,7 +4,8 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
-  rescue_from ActiveRecord::RecordInvalid, :with => :render_invalid_record
+  rescue_from ActiveRecord::RecordInvalid,  :with => :render_invalid_record
+  rescue_from ActiveRecord::RecordNotFound, :with => :render_record_not_found
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -20,10 +21,17 @@ class ApplicationController < ActionController::Base
   def render_invalid_record exception
     record = exception.record
     respond_to do |format|
-      format.html { render :action => (record.new_record? ? 'new' : 'edit') }
+      format.json { render :json => record.errors.full_messages, :status => :unprocessable_entity }
       format.js   { render :json => record.errors.full_messages, :status => :unprocessable_entity, :content_type => 'application/json' }
       format.xml  { render :xml => record.errors.full_messages,  :status => :unprocessable_entity }
-      format.json { render :json => record.errors.full_messages, :status => :unprocessable_entity }
+    end
+  end
+
+  def render_record_not_found exception
+    respond_to do |format|
+      format.json { render :json => exception.to_s, :status => :unprocessable_entity }
+      format.js   { render :json => exception.to_s, :status => :unprocessable_entity, :content_type => 'application/json' }
+      format.xml  { render :xml  => exception.to_s, :status => :unprocessable_entity }
     end
   end
 end
