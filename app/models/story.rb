@@ -1,2 +1,16 @@
+# == Schema Information
+# Schema version: 20080605150641
+#
+# Table name: stories
+#
+#  id              :integer(11)     not null, primary key
+#  name            :string(255)     
+#  description     :text            
+#  iteration_id    :integer(11)     
+#  estimated_hours :integer(11)     
+#  created_at      :datetime        
+#  updated_at      :datetime        
+#
+
 class Story < ActiveRecord::Base
 end

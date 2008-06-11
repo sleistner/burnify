@@ -9,13 +9,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080605150641) do
+ActiveRecord::Schema.define(:version => 20080611171750) do
+
+  create_table "calendars", :force => true do |t|
+    t.string   "name"
+    t.text     "ics"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "iterations", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.date     "start"
     t.date     "deadline"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "project_id",  :limit => 11
+  end
+
+  add_index "iterations", ["project_id"], :name => "fk_iterations_projects"
+
+  create_table "projects", :force => true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -27,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20080605150641) do
     t.integer  "estimated_hours", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start"
+    t.date     "deadline"
   end
 
   add_index "stories", ["iteration_id"], :name => "fk_stories_iterations"
