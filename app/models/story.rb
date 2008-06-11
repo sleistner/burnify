@@ -10,8 +10,6 @@
 #  estimated_hours :integer(11)     
 #  created_at      :datetime        
 #  updated_at      :datetime        
-#  start           :date            
-#  deadline        :date            
 #
 
 class Story < ActiveRecord::Base

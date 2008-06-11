@@ -34,4 +34,13 @@ class ProjectsControllerTest < ActionController::TestCase
     assert_response :unprocessable_entity, @response.body
   end
 
+  def test_update
+    p = Project.create :name => 'foo_project'
+    xhr :put, :update, :id => p.id, :project => {
+      :name => 'bar'
+    }
+    assert_response :ok, @response.body
+    assert_equal 'bar', Project.find(p.id).name
+  end
+
 end

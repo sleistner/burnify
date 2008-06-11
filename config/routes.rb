@@ -3,10 +3,13 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'dashboard'
 
   map.resources :projects do |project|
-    project.resources :iterations
+    project.resources :iterations do |iteration|
+      iteration.resources :stories
+    end
   end
 
   map.resources :iterations
+  map.resources :stories
 
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -21,6 +21,15 @@ module ActsAsResource
     end
   end
 
+  def update
+    instance = model.find(params[:id])
+    instance.update_attributes(params[model_name])
+    respond_to do |format|
+      format.json { render :json => instance }
+      format.xml  { render :xml  => instance }
+    end
+  end
+
   def destroy
     model.destroy model.find(params[:id])
     head :ok
