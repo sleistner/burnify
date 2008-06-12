@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(:version => 20080611171750) do
     t.integer  "estimated_hours", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "start"
+    t.date     "deadline"
   end
 
   add_index "stories", ["iteration_id"], :name => "fk_stories_iterations"

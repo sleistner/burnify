@@ -21,34 +21,24 @@ module ActsAsResourceController
     end
 
     def index
-      respond_to do |format|
-        format.json { render :json => model.all }
-        format.xml  { render :xml  => model.all }
-      end
+      render_formats model.all
     end
 
     def show
       instance = model.find(params[:id])
-      respond_to do |format|
-        format.json { render :json => instance }
-        format.xml  { render :xml  => instance }
-      end
+      render_formats instance
     end
 
     def update
       instance = model.find(params[:id])
       instance.update_attributes(params[model_name])
-      respond_to do |format|
-        format.json { render :json => instance }
-        format.xml  { render :xml  => instance }
-      end
+      render_formats instance
     end
 
     def destroy
       model.destroy model.find(params[:id])
       head :ok
     end
-
 
   private
 
@@ -58,6 +48,13 @@ module ActsAsResourceController
 
     def model
       @model ||= model_name.camelize.constantize
+    end
+    
+    def render_formats data
+      respond_to do |format|
+        format.json { render :json => data }
+        format.xml  { render :xml  => data }
+      end
     end
   
   end# ClassMethods
