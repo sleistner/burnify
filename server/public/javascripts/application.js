@@ -21,7 +21,7 @@ $extend(Array.prototype, {
 Chart = new Class({
   gap: 30,
   font: 'sans',
-  fontsize: 9,
+  fontsize: 8,
   themes: {
     blue: { background: ['#10B0EC', '#fff'], color: '#000' },
     green: { background: ['#90BA2F', '#fff'], color: '#000' },
@@ -31,7 +31,7 @@ Chart = new Class({
   initialize: function(options) {
     this.canvas = options.canvas;
     this.context = this.canvas.getContext('2d');
-    this.theme = options.theme || this.themes.dark;
+    this.theme = options.theme || this.themes.blue;
     this.setSize(options.width, options.height);
     CanvasTextFunctions.enable(this.context);
   },
