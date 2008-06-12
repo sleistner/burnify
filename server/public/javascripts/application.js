@@ -1,5 +1,22 @@
+var $break = { };
 
-// Namespace.create('burndown');
+$extend(Array.prototype, {
+  
+  detect: function(iterator, context) {
+    var result, iterator = iterator.bind(context);
+    try {
+      this.each(function(value, index) {
+        if (iterator(value, index)) {
+          result = value;
+          throw $break;
+        }
+      });
+    } catch(e) {
+      if(e != $break) throw e;
+    }
+    return result;
+  }
+});
 
 function draw(data) {
   var canvas = $('canvas');
@@ -13,29 +30,29 @@ function draw(data) {
   var gap = 25;
   var width = canvas.getWidth() - gap;
   var height = canvas.getHeight() -gap;
-  
-  var maxX = data.days.size();
+
+  var maxX = data.days.length;
   var stepX = width / maxX;
-  
-  var rated_days = data.days.reject(function(e) { return e.left == null });
-  var max_hours = rated_days.map(function(e){return e.left}).toArray().sort(function(a,b) {return a - b}).last() + 10;
+
+  var rated_days = data.days.filter(function(e) { return e.left != null });
+  var max_hours = rated_days.map(function(e){return e.left}).sort(function(a,b) {return a - b}).getLast() + 10;
   var maxY = Math.max(data.hours_estimated, max_hours);
   var stepY = 10;
   var stepsY = maxY / stepY;
   var wideY = (height / stepsY);
-  
+
   var font = "sans";
   var fontsize = 6;
 
   var valueY = function(p) {
     return height - p * (height / maxY)
   };
-  
+
   var valueX = function(day) {
     var entry = data.days.detect(function(e) { return e.day == day });
     return gap + (data.days.indexOf(entry) * stepX);
   };
-  
+
   // axes
   ctx.beginPath();
   ctx.lineWidth = .5;
@@ -71,14 +88,14 @@ function draw(data) {
   // optimal line
   ctx.beginPath();
   ctx.lineWidth = .5;
-  ctx.moveTo(valueX(data.days.first().day), valueY(data.hours_estimated));
-  ctx.lineTo(valueX(data.days.last().day), valueY(0));
+  ctx.moveTo(valueX(data.days[0].day), valueY(data.hours_estimated));
+  ctx.lineTo(valueX(data.days.getLast().day), valueY(0));
   ctx.stroke();
   ctx.save();
-  
+
   ctx.lineWidth = 2;
   ctx.strokeStyle = "green";
-  var prev = data.days.first();
+  var prev = data.days[0];
   rated_days.each(function(e) {
     ctx.beginPath();
     ctx.moveTo(valueX(prev.day), valueY(prev.left));
@@ -108,4 +125,4 @@ var data = {
   hours_estimated: 150
 };
 
-document.observe('dom:loaded', draw.bind(this, data));
+window.addEvent('load', function(){draw(data)});
