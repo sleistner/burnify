@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
 
-  include ActsAsResource
+  acts_as_resource_controller
 
 end
