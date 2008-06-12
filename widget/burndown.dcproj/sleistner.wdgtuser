@@ -38,6 +38,8 @@
 			<string>{{245, 0}, {760, 717}}</string>
 		</array>
 	</dict>
+	<key>MainWindowFrame</key>
+	<string>389 137 1004 738 0 0 1440 878 </string>
 	<key>NavigatorSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
@@ -61,10 +63,20 @@
 		<array>
 			<integer>0</integer>
 		</array>
+		<array>
+			<integer>0</integer>
+			<integer>0</integer>
+		</array>
+		<array>
+			<integer>0</integer>
+			<integer>1</integer>
+		</array>
 	</array>
 	<key>Objects view last selections</key>
 	<array>
 		<array>
+			<integer>0</integer>
+			<integer>0</integer>
 			<integer>0</integer>
 		</array>
 	</array>
