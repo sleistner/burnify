@@ -1,3 +1,4 @@
+
 Base = new Class({
 
   configure: function(config) {
@@ -65,5 +66,3 @@ window.addEvent('load', function() {
   iterations = new Iterations();
   stories = new Stories();
 });
-
-

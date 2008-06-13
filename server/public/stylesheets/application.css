@@ -2,6 +2,10 @@ body {
   font-size: 62.5%;
 }
 
+canvas#iteration_chart {
+/*  float: left;*/
+}
+
 div#selections div {
   float: left;
 }
