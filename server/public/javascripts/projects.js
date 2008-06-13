@@ -23,7 +23,7 @@ Resource = new Class({
 
   createContainerElement: function() {
     var container = new Element('select', { size: 7 });
-    container.addEvent('change', this.onChanged.bind(this));
+    container.addEvent('change', this.onChange.bind(this));
     return container;
   },
 
@@ -31,16 +31,46 @@ Resource = new Class({
     return new Element('option', { value: it.id }).appendText(it.name);
   },
 
-  onChanged: function(event) {
-    document.fireEvent(this.root + ':changed', event.target.getSelected().get('value'));
-  }
+  onChange: function(event) {
+    this.onSelect(event.target.getSelected().get('value'));
+  },
 
+  onSelect: function(id) {
+    document.fireEvent(this.root + ':changed', id);
+  }
 });
 
 
-Projects = new Class({
-  Implements: Resource,
-  
+FxResource = new Class({ Extends: Resource,
+
+  ulClass:        'fx1',
+  // selectedClass:  'selected',
+  titleClass:     'title',
+  title:          'FxResource',
+
+  createContainerElement: function() {
+    var container = new Element('ul', { class: this.ulClass });
+    container.adopt(new Element('li', { class: this.titleClass }).appendText(this.title));
+    return container;
+  },
+
+  createItemElement: function(it) {
+    var el      = new Element('li').appendText(it.name);
+    var overfxs = new Fx.Morph(el, { duration: 300, link: 'cancel' });
+
+    el.addEvent('click', this.onSelect.bind(this, it.id));
+    el.addEvent('mouseenter', function(e) { overfxs.start('.item_hover'); el.setStyle('cursor', 'pointer') });
+    el.addEvent('mouseleave', function(e) { overfxs.start('.item_none');  el.setStyle('cursor', 'auto') });
+
+    return el;
+  }
+});
+
+
+Projects = new Class({ Extends: FxResource,
+
+  title: 'Project',
+
   initialize: function() {
     this.configure({ type: 'projects', root: 'project' });
     this.load();
@@ -48,8 +78,9 @@ Projects = new Class({
 });
 
 
-Iterations = new Class({
-  Implements: Resource,
+Iterations = new Class({ Extends: FxResource,
+
+  title: 'Iteration',
 
   initialize: function() {
     this.configure({ type: 'iterations', root: 'iteration' });
@@ -62,8 +93,9 @@ Iterations = new Class({
 });
 
 
-Stories = new Class({
-  Implements: Resource,
+Stories = new Class({ Extends: FxResource,
+
+  title: 'UserStory',
 
   initialize: function() {
     this.configure({ type: 'stories', root: 'story' });

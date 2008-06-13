@@ -34,3 +34,39 @@ div#selections div select {
   width: 100%;
   font-size: 12px;
 }
+
+
+/* --------------------------------------------- */
+ul.fx1 {
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.fx1 li {
+  margin: 2px 0 2px 0;
+  padding: 2px 0 4px 0;
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  background: #fff;
+  color: #333;
+}
+.fx1 li.title {
+  font-weight: bold;
+  background: #333;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.item_none {
+  background: #fff;
+  color: #333;
+}
+.item_hover {
+  background: #f01020;
+  color: #000;
+}
+/* --------------------------------------------- */
+
+
