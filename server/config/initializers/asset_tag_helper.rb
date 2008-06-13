@@ -1,0 +1,1 @@
+ActionView::Helpers::AssetTagHelper::register_javascript_include_default 'mootools-core', 'mootools-more', 'chart'
