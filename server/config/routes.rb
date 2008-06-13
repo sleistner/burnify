@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'dashboard'
 
   map.resources :projects, :has_many => :iterations
-  map.resources :iterations, :has_many => :stories
+  map.resources :iterations, :member => { :chart_data => :get }, :has_many => :stories
 
   # The priority is based upon order of creation: first created -> highest priority.
 

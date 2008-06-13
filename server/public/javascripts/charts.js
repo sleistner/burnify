@@ -74,7 +74,7 @@ Chart = new Class({
     this.context.strokeStyle = 'orange';
     this.context.beginPath();
     this.context.lineWidth = .5;
-    this.context.moveTo(this.positionX(this.data.days[0].day), this.positionY(this.data.hours_estimated));
+    this.context.moveTo(this.positionX(this.data.days[0].day), this.positionY(this.data.estimated_hours));
     this.context.lineTo(this.positionX(this.data.days.getLast().day), this.positionY(0));
     this.context.stroke();
     this.context.save();
@@ -128,7 +128,7 @@ Chart = new Class({
     this.step_x = this.axis_width / this.max_x;
     this.rated_days = this.data.days.filter(function(e) { return e.left != null });
     this.max_hours = this.rated_days.map(function(e) { return e.left }).sort(function(a, b) { return a - b }).getLast() + 10;
-    this.max_y = Math.max(this.data.hours_estimated, this.max_hours);
+    this.max_y = Math.max(this.data.estimated_hours, this.max_hours);
     this.step_y = 10;
     this.steps_y = this.max_y / this.step_y;
     this.wide_y = (this.axis_height / this.steps_y);

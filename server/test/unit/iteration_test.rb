@@ -5,7 +5,6 @@ class IterationTest < ActiveSupport::TestCase
   def test_should_not_create_without_project
     it = Iteration.new :name => 'foo', :start => Time.now, :deadline => 23.days.from_now
     assert !it.valid?
-    p it.errors.full_messages
     assert_not_nil it.errors.on(:project)
   end
 
@@ -32,7 +31,6 @@ class IterationTest < ActiveSupport::TestCase
 
     it = Iteration.new :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project_id => 23
     assert !it.valid?
-    p it.errors.full_messages
     assert_not_nil it.errors.on(:project)
   end
 

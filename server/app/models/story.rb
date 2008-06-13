@@ -14,4 +14,12 @@
 
 class Story < ActiveRecord::Base
   belongs_to :iteration
+  has_many :story_histories
+  
+  # named_scope :hours_left
+  
+  # TODO: fetch the story_history data for the given day or return nil if no story_history exists
+  def hours_left_on day
+    rand 100
+  end
 end
