@@ -21,7 +21,7 @@ $extend(Array.prototype, {
 Chart = new Class({
   gap: 30,
   font: 'sans',
-  fontsize: 8,
+  fontsize: 8\,
   themes: {
     blue: { background: ['#10B0EC', '#fff'], color: '#000' },
     green: { background: ['#90BA2F', '#fff'], color: '#000' },
@@ -176,6 +176,7 @@ var data = {
 
 var c;
 window.addEvent('load', function() {
-  c = new Chart({ canvas: $('canvas'), width: 500, height: 300 })
-  c.render(data);
+  // c = new Chart({ canvas: $('canvas'), width: 500, height: 300 })
+  // c.render(data);
+  
 });

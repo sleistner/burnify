@@ -12,11 +12,10 @@ class IterationsControllerTest < ActionController::TestCase
   def test_create_should_return_valid_location
     p = Project.create :name => 'foo_project'
 
-    xhr :post, :create, :iteration => {
+    xhr :post, :create, :project_id => p.id, :iteration => {
       :name => 'foo',
       :start => Time.now,
-      :deadline => 23.days.from_now,
-      :project_id => p.id
+      :deadline => 23.days.from_now
     }
     assert_response :ok, @response.body
 

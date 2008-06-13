@@ -8,8 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.resources :iterations
-  map.resources :stories
+  # map.resources :iterations
+  # map.resources :stories
 
   # The priority is based upon order of creation: first created -> highest priority.
 

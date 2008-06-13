@@ -6,7 +6,7 @@ module ActsAsResourceController
 
   module ClassMethods
 
-    def acts_as_resource_controller
+    def acts_as_resource_controller options = {}
       self.send :include, ResourceMethods
     end
 
