@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   # See ActionController::Base for details 
   # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password"). 
+  # from your application log (in this case, all fields with names like "password").
   # filter_parameter_logging :password
 
   private
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.json { render :json => exception.to_s, :status => :unprocessable_entity }
       format.js   { render :json => exception.to_s, :status => :unprocessable_entity, :content_type => 'application/json' }
-      format.xml  { render :xml  => exception.to_s, :status => :unprocessable_entity }
+      format.xml  { render :xml  => "<error>#{exception}</error>", :status => :unprocessable_entity }
     end
   end
 end
