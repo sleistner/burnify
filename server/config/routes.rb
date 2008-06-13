@@ -2,14 +2,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => 'dashboard'
 
-  map.resources :projects do |project|
-    project.resources :iterations do |iteration|
-      iteration.resources :stories
-    end
-  end
-
-  # map.resources :iterations
-  # map.resources :stories
+  map.resources :projects, :has_many => :iterations
+  map.resources :iterations, :has_many => :stories
 
   # The priority is based upon order of creation: first created -> highest priority.
 
