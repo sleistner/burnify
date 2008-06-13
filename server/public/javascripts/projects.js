@@ -8,7 +8,7 @@ Resource = new Class({
   },
 
   load: function(url) {
-    new Request.JSON({url: url || '/' + this.type, method: 'get', onComplete: this.onLoadComplete.bind(this) }).send();
+    new Request.JSON({ url: url || '/' + this.type, method: 'get', onComplete: this.onLoadComplete.bind(this) }).send();
   },
 
   onLoadComplete: function(items) {
@@ -16,9 +16,7 @@ Resource = new Class({
   },
 
   render: function(items) {
-    this.element.empty().adopt( this.createContainerElement().adopt( items.map( function(it) {
-      return this.createItemElement(it);
-    }, this)));
+    this.element.empty().adopt(this.createContainerElement().adopt(items.map(this.createItemElement.bind(this))));
   },
 
   createContainerElement: function() {
@@ -99,7 +97,12 @@ Stories = new Class({ Extends: FxResource,
 
   initialize: function() {
     this.configure({ type: 'stories', root: 'story' });
+    document.addEvent('project:changed', this.onProjectChanged.bind(this));
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
+  },
+  
+  onProjectChanged: function() {
+    this.element.empty();
   },
 
   onIterationChanged: function(iteration_id) {
