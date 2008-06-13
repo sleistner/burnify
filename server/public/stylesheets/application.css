@@ -1,3 +1,12 @@
-canvas#canvas {
-/*  background: lightblue; */
+body {
+  font-size: 62.5%;
+}
+
+div#selections div {
+  float: left;
+}
+
+div#selections div select {
+  width: 20em;
+  margin-right: 1em;
 }

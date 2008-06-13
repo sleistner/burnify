@@ -47,9 +47,23 @@ Iterations = new Class({
   }
 });
 
+Stories = new Class({
+  Extends: Base,
+
+  initialize: function() {
+    this.configure({ type: 'stories', root: 'story' });
+    document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
+  },
+  
+  onIterationChanged: function(iteration_id) {
+    this.load('/iterations/' + iteration_id + '/' + this.type);
+  }
+});
+
 window.addEvent('load', function() {
   projects = new Projects();
   iterations = new Iterations();
+  stories = new Stories();
 });
 
 

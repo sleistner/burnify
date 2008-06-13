@@ -16,7 +16,8 @@
 class Iteration < ActiveRecord::Base
 
   belongs_to :project
-
+  has_many :stories
+  
   validates_presence_of :name
   validates_presence_of :start
   validates_presence_of :deadline

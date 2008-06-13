@@ -48,7 +48,7 @@ module ActsAsResourceController
   private
 
     def belongs_to?
-      !belongs_to.nil?
+      !belongs_to.nil? && !params[belongs_to_id].nil?
     end
 
     def belongs_to_id
