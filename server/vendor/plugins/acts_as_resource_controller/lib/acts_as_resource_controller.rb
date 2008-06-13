@@ -6,8 +6,9 @@ module ActsAsResourceController
 
   module ClassMethods
 
-    def acts_as_resource_controller
-      self.send :include, ResourceMethods
+    def acts_as_resource_controller options = {}
+      include ResourceMethods
+      define_method(:belongs_to) { options[:belongs_to] }
     end
 
   end
@@ -21,7 +22,11 @@ module ActsAsResourceController
     end
 
     def index
-      render_formats model.all
+      if belongs_to?
+        render_formats model.find(:all, :conditions => ["#{belongs_to_id} = ?", params[belongs_to_id]])
+      else
+        render_formats model.all
+      end
     end
 
     def show
@@ -41,6 +46,14 @@ module ActsAsResourceController
     end
 
   private
+
+    def belongs_to?
+      !belongs_to.nil?
+    end
+
+    def belongs_to_id
+      "#{belongs_to}_id"
+    end
 
     def model_name
       @model_name ||= controller_name.singularize
