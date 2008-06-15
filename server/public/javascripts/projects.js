@@ -8,7 +8,7 @@ Resource = new Class({
   },
 
   load: function(url) {
-    new Request.JSON({ url: url || '/' + this.type, method: 'get', onComplete: this.onLoadComplete.bind(this) }).send();
+    new Request.JSON({ url: url || '/' + this.type, method: 'get', autoCancel: true, onComplete: this.onLoadComplete.bind(this) }).send();
   },
 
   onLoadComplete: function(items) {
@@ -42,25 +42,45 @@ Resource = new Class({
 FxResource = new Class({ Extends: Resource,
 
   ulClass:        'fx1',
-  // selectedClass:  'selected',
+  selectedClass:  'selected',
   titleClass:     'title',
   title:          'FxResource',
+  initFadeStep:   300,
+
+  render: function(items) {
+    this.selectedElement = undefined;
+    this.fadeDuration = this.initFadeStep;
+    this.parent(items);
+  },
 
   createContainerElement: function() {
-    var container = new Element('ul', { class: this.ulClass });
-    container.adopt(new Element('li', { class: this.titleClass }).appendText(this.title));
+    var container = new Element('ul', { 'class': this.ulClass });
+    container.adopt(new Element('li', { 'class': this.titleClass }).appendText(this.title));
     return container;
   },
 
   createItemElement: function(it) {
     var el      = new Element('li').appendText(it.name);
     var overfxs = new Fx.Morph(el, { duration: 300, link: 'cancel' });
+    var initfxs = new Fx.Tween(el, { duration: this.fadeDuration, link: 'cancel' });
 
-    el.addEvent('click', this.onSelect.bind(this, it.id));
+    el.addEvent('click', this.onSelectItemElement.bind(this, { el: el, id: it.id }));
     el.addEvent('mouseenter', function(e) { overfxs.start('.item_hover'); el.setStyle('cursor', 'pointer') });
     el.addEvent('mouseleave', function(e) { overfxs.start('.item_none');  el.setStyle('cursor', 'auto') });
 
+    initfxs.start('color', '#fff', '#333');
+    this.fadeDuration += this.initFadeStep;
+
     return el;
+  },
+
+  onSelectItemElement: function(memo) {
+    if ($defined(this.selectedElement)) {
+      this.selectedElement.removeClass(this.selectedClass);
+    }
+    memo.el.addClass(this.selectedClass);
+    this.selectedElement = memo.el;
+    this.onSelect(memo.id);
   }
 });
 
@@ -83,6 +103,7 @@ Iterations = new Class({ Extends: FxResource,
   initialize: function() {
     this.configure({ type: 'iterations', root: 'iteration' });
     document.addEvent('project:changed', this.onProjectChanged.bind(this));
+    this.render([]);
   },
 
   onProjectChanged: function(project_id) {
@@ -97,12 +118,13 @@ Stories = new Class({ Extends: FxResource,
 
   initialize: function() {
     this.configure({ type: 'stories', root: 'story' });
-    document.addEvent('project:changed', this.onProjectChanged.bind(this));
+    document.addEvent('project:changed',   this.onProjectChanged.bind(this));
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
+    this.render([]);
   },
   
   onProjectChanged: function() {
-    this.element.empty();
+    this.render([]);
   },
 
   onIterationChanged: function(iteration_id) {
@@ -112,7 +134,7 @@ Stories = new Class({ Extends: FxResource,
 
 
 
-window.addEvent('load', function() {
+window.addEvent('domready', function() {
   projects   = new Projects();
   iterations = new Iterations();
   stories    = new Stories();

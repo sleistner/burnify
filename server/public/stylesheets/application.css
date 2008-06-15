@@ -9,15 +9,19 @@ body, div {
 
 #burndown div {
   margin: 0 auto;
-  width: 760px;
+  width: 600px;
 }
 
+canvas {
+  margin: 0;
+  padding: 0;
+}
 
 div#controls {
 }
 
 div#selections {
-  width: 660px;
+  width: 780px;
   margin: 0 auto;
 }
 
@@ -26,9 +30,9 @@ canvas#iteration_chart {
 }
 
 div#selections div {
-  width: 200px;
-  margin-right: 10px;
-  margin-left: 10px;
+  width: 220px;
+  margin-right: 20px;
+  margin-left: 20px;
   float: left;
 }
 
@@ -52,7 +56,7 @@ ul.fx1 {
   padding: 2px 0 4px 0;
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   background: #fff;
-  color: #333;
+  color: #fff;
 }
 .fx1 li.title {
   font-weight: bold;
@@ -68,6 +72,12 @@ ul.fx1 {
 .item_hover {
   background: #f01020;
   color: #000;
+}
+
+.selected {
+  background: #f01020 !important;
+  color: #ffe !important;
+  font-style: italic;
 }
 /* --------------------------------------------- */
 
