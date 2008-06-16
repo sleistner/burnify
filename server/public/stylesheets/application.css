@@ -79,6 +79,12 @@ ul.fx1 {
   color: #ffe !important;
   font-style: italic;
 }
+
+img.loading {
+  vertical-align: middle;
+  padding: 0 0 0 0.6em;
+  margin: 0 -1.5em 0 0;
+}
 /* --------------------------------------------- */
 
 

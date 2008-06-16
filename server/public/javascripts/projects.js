@@ -55,8 +55,7 @@ FxResource = new Class({ Extends: Resource,
 
   createContainerElement: function() {
     var container = new Element('ul', { 'class': this.ulClass });
-    container.adopt(new Element('li', { 'class': this.titleClass }).appendText(this.title));
-    return container;
+    return container.adopt(new Element('li', { 'class': this.titleClass }).appendText(this.title));
   },
 
   createItemElement: function(it) {
