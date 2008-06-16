@@ -61,8 +61,6 @@
  *
  */
 (function($) {
-  console.info('facebox init');
-
   $.facebox = function(data, klass) {
     $.facebox.loading()
 
