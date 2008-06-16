@@ -28,6 +28,7 @@
 #  project_id  :integer(11)     
 #
 class Iteration < ActiveRecord::Base
+  include Chartify
 
   belongs_to :project
   has_many :stories
@@ -45,19 +46,16 @@ class Iteration < ActiveRecord::Base
     end
   end
   
-  def chart_data
-    returning Hash.new do |iteration|
-      iteration[:estimated_hours] = stories.map(&:estimated_hours).sum
-      working_days.each { |day| (iteration[:days] ||= []) << { :day => day.strftime('%d.%m'), :left => hours_left_on(day) } }
-    end
-  end
-  
   def working_days
     events = Icalendar.parse(Calendar.find_by_name('Berlin').ics).first.events.map { |event| event.dtstart }
     (start.to_datetime..deadline.to_datetime).reject { |day| events.include?(day) || [0, 6].include?(day.wday) }
   end
     
   private
+  
+    def estimated_hours
+      stories.map(&:estimated_hours).sum
+    end
     
     def hours_left_on day
       hours = stories.map { |story| story.hours_left_on day }.compact

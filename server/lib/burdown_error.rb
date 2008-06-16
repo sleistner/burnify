@@ -1,0 +1,1 @@
+class BurndownError < StandardError; end
