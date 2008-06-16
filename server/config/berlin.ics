@@ -1,0 +1,503 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:Berlin
+PRODID:-//Apple Computer\, Inc//iCal 2.0//EN
+X-WR-TIMEZONE:Europe/Berlin
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/neujahr
+DTSTART;VALUE=DATE:20040101
+SUMMARY:Neujahr
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/karfreitag
+DTSTART;VALUE=DATE:20040409
+SUMMARY:Karfreitag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostersonntag
+DTSTART;VALUE=DATE:20040411
+SUMMARY:Ostersonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostermontag
+DTSTART;VALUE=DATE:20040412
+SUMMARY:Ostermontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_arbeit
+DTSTART;VALUE=DATE:20040501
+SUMMARY:Tag der Arbeit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstsonntag
+DTSTART;VALUE=DATE:20040530
+SUMMARY:Pfingstsonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstmontag
+DTSTART;VALUE=DATE:20040531
+SUMMARY:Pfingstmontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_deutschen_einheit
+DTSTART;VALUE=DATE:20041003
+SUMMARY:Tag der Deutschen Einheit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/1_weihnachtstag
+DTSTART;VALUE=DATE:20041225
+SUMMARY:1. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/2_weihnachtstag
+DTSTART;VALUE=DATE:20041226
+SUMMARY:2. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/christi_himmelfahrt
+DTSTART;VALUE=DATE:20040520
+SUMMARY:Christi Himmelfahrt
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/neujahr
+DTSTART;VALUE=DATE:20050101
+SUMMARY:Neujahr
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/karfreitag
+DTSTART;VALUE=DATE:20050325
+SUMMARY:Karfreitag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostersonntag
+DTSTART;VALUE=DATE:20050327
+SUMMARY:Ostersonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostermontag
+DTSTART;VALUE=DATE:20050328
+SUMMARY:Ostermontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_arbeit
+DTSTART;VALUE=DATE:20050501
+SUMMARY:Tag der Arbeit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstsonntag
+DTSTART;VALUE=DATE:20050515
+SUMMARY:Pfingstsonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstmontag
+DTSTART;VALUE=DATE:20050516
+SUMMARY:Pfingstmontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_deutschen_einheit
+DTSTART;VALUE=DATE:20051003
+SUMMARY:Tag der Deutschen Einheit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/1_weihnachtstag
+DTSTART;VALUE=DATE:20051225
+SUMMARY:1. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/2_weihnachtstag
+DTSTART;VALUE=DATE:20051226
+SUMMARY:2. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/christi_himmelfahrt
+DTSTART;VALUE=DATE:20050505
+SUMMARY:Christi Himmelfahrt
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/neujahr
+DTSTART;VALUE=DATE:20060101
+SUMMARY:Neujahr
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/karfreitag
+DTSTART;VALUE=DATE:20060414
+SUMMARY:Karfreitag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostersonntag
+DTSTART;VALUE=DATE:20060416
+SUMMARY:Ostersonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostermontag
+DTSTART;VALUE=DATE:20060417
+SUMMARY:Ostermontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_arbeit
+DTSTART;VALUE=DATE:20060501
+SUMMARY:Tag der Arbeit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstsonntag
+DTSTART;VALUE=DATE:20060604
+SUMMARY:Pfingstsonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstmontag
+DTSTART;VALUE=DATE:20060605
+SUMMARY:Pfingstmontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_deutschen_einheit
+DTSTART;VALUE=DATE:20061003
+SUMMARY:Tag der Deutschen Einheit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/1_weihnachtstag
+DTSTART;VALUE=DATE:20061225
+SUMMARY:1. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/2_weihnachtstag
+DTSTART;VALUE=DATE:20061226
+SUMMARY:2. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/christi_himmelfahrt
+DTSTART;VALUE=DATE:20060525
+SUMMARY:Christi Himmelfahrt
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/neujahr
+DTSTART;VALUE=DATE:20070101
+SUMMARY:Neujahr
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/karfreitag
+DTSTART;VALUE=DATE:20070406
+SUMMARY:Karfreitag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostersonntag
+DTSTART;VALUE=DATE:20070408
+SUMMARY:Ostersonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostermontag
+DTSTART;VALUE=DATE:20070409
+SUMMARY:Ostermontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_arbeit
+DTSTART;VALUE=DATE:20070501
+SUMMARY:Tag der Arbeit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstsonntag
+DTSTART;VALUE=DATE:20070527
+SUMMARY:Pfingstsonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstmontag
+DTSTART;VALUE=DATE:20070528
+SUMMARY:Pfingstmontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_deutschen_einheit
+DTSTART;VALUE=DATE:20071003
+SUMMARY:Tag der Deutschen Einheit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/1_weihnachtstag
+DTSTART;VALUE=DATE:20071225
+SUMMARY:1. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/2_weihnachtstag
+DTSTART;VALUE=DATE:20071226
+SUMMARY:2. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/christi_himmelfahrt
+DTSTART;VALUE=DATE:20070517
+SUMMARY:Christi Himmelfahrt
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/neujahr
+DTSTART;VALUE=DATE:20080101
+SUMMARY:Neujahr
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/karfreitag
+DTSTART;VALUE=DATE:20080321
+SUMMARY:Karfreitag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostersonntag
+DTSTART;VALUE=DATE:20080323
+SUMMARY:Ostersonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/ostermontag
+DTSTART;VALUE=DATE:20080324
+SUMMARY:Ostermontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_arbeit
+DTSTART;VALUE=DATE:20080501
+SUMMARY:Tag der Arbeit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstsonntag
+DTSTART;VALUE=DATE:20080511
+SUMMARY:Pfingstsonntag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/pfingstmontag
+DTSTART;VALUE=DATE:20080512
+SUMMARY:Pfingstmontag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/tag_der_deutschen_einheit
+DTSTART;VALUE=DATE:20081003
+SUMMARY:Tag der Deutschen Einheit
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/1_weihnachtstag
+DTSTART;VALUE=DATE:20081225
+SUMMARY:1. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/2_weihnachtstag
+DTSTART;VALUE=DATE:20081226
+SUMMARY:2. Weihnachtstag
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+BEGIN:VEVENT
+DURATION:P1D
+LOCATION:Berlin
+SEQUENCE:0
+URL;VALUE=URI:http://www.ecoline-kalender.de/ft/christi_himmelfahrt
+DTSTART;VALUE=DATE:20080501
+SUMMARY:Christi Himmelfahrt
+DESCRIPTION:Dieser Kalender enthält zur Zeit die Feiertage bis Mai 2009.
+END:VEVENT
+END:VCALENDAR

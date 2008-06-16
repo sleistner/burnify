@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class IterationTest < ActiveSupport::TestCase
 
+  def setup
+    Calendar.create! :name => 'Berlin', :ics => File.read(File.join(RAILS_ROOT, 'config', 'berlin.ics'))
+  end
+
   def test_should_not_create_without_project
     it = Iteration.new :name => 'foo', :start => Time.now, :deadline => 23.days.from_now
     assert !it.valid?
@@ -9,7 +13,7 @@ class IterationTest < ActiveSupport::TestCase
   end
 
   def test_create_with_project_as_object
-    pr = Project.create :name => 'foo_project'
+    pr = projects(:connect)
 
     it = Iteration.create :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project => pr
     assert_valid it
@@ -18,7 +22,7 @@ class IterationTest < ActiveSupport::TestCase
   end
 
   def test_create_with_project_id
-    pr = Project.create :name => 'foo_project'
+    pr = projects(:connect)
 
     it = Iteration.create :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project_id => pr.id
     assert_valid it
@@ -32,6 +36,23 @@ class IterationTest < ActiveSupport::TestCase
     it = Iteration.new :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project_id => 23
     assert !it.valid?
     assert_not_nil it.errors.on(:project)
+  end
+  
+  def test_should_generate_chart_data
+    it = Iteration.new :name => 'foo', :start => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
+    it.stories.build :estimated_hours => 20
+    it.stories.build :estimated_hours => 40
+    chart_data = it.chart_data
+    assert_equal 60, chart_data[:estimated_hours]
+    assert_equal 2, chart_data[:days].size
+  end
+
+  def test_should_generate_empty_chart_data
+    it = Iteration.new :name => 'foo', :start => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
+    chart_data = it.chart_data
+    assert_equal 0, chart_data[:estimated_hours]
+    assert_equal 2, chart_data[:days].size
+    assert_equal [], chart_data[:days].map { |h| h[:left] }.compact
   end
 
 end

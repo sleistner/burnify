@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080611171750) do
+ActiveRecord::Schema.define(:version => 20080616072435) do
 
   create_table "calendars", :force => true do |t|
     t.string   "name"
@@ -43,8 +43,6 @@ ActiveRecord::Schema.define(:version => 20080611171750) do
     t.integer  "estimated_hours", :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "start"
-    t.date     "deadline"
   end
 
   add_index "stories", ["iteration_id"], :name => "fk_stories_iterations"
@@ -54,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20080611171750) do
     t.integer  "story_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "day"
   end
 
   add_index "story_histories", ["story_id"], :name => "fk_story_histories_stories"

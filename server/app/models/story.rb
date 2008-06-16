@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080611171750
+# Schema version: 20080616072435
 #
 # Table name: stories
 #
@@ -14,12 +14,23 @@
 
 class Story < ActiveRecord::Base
   belongs_to :iteration
-  has_many :story_histories
-  
-  # named_scope :hours_left
-  
-  # TODO: fetch the story_history data for the given day or return nil if no story_history exists
+  has_many :histories, :class_name => 'StoryHistory'
+
+  validates_presence_of :name
+  validates_presence_of :iteration
+
+  validates_uniqueness_of :name, :scope => :iteration_id
+
+  validates_numericality_of :estimated_hours, :greater_than_or_equal_to => 0
+
+  def chart_data
+    returning Hash.new do |story|
+      story[:estimated_hours] = estimated_hours
+      iteration.working_days.each { |day| (story[:days] ||= []) << { :day => day, :left => hours_left_on(day) } }
+    end
+  end
+
   def hours_left_on day
-    rand 100
+    story_histories.find_by_day(day).hours_left rescue nil
   end
 end

@@ -1,1 +1,4 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+urar:
+  name: 'User Rights And Roles'
+  estimated_hours: 170
+  iteration: june

@@ -2,7 +2,7 @@
 Chart = new Class({
   gap: 30,
   font: 'sans',
-  fontsize: 8,
+  fontsize: 10,
   themes: {
     blue: { background: ['#10B0EC', '#fff'], color: '#000' },
     green: { background: ['#90BA2F', '#fff'], color: '#000' },
@@ -49,14 +49,18 @@ Chart = new Class({
   drawGridLines: function() {
     this.context.lineWidth = .06;
     
+    // var r = 150;
     for(var i = 0; i < this.max_x; i++) {
       var x = this.gap + (i * this.step_x), label = this.data.days[i].day.toString();
       this.context.beginPath();
       this.context.moveTo(x, 0);
       this.context.lineTo(x, this.axis_height + (this.gap / 2));
       this.context.stroke();
+      this.context.save();
+      // this.context.rotate(r);
       this.context.drawText(this.font, this.fontsize, x - (this.fontsize / 2), this.axis_height + (this.gap / (i % 2 == 0 ? 2 : 1)), label);
       this.context.save();
+      // this.context.rotate(-r);
     }
 
     for(var i = this.steps_y; i >= 0; i--) {
