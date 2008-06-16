@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080616072435
+# Schema version: 20080616190553
 #
 # Table name: iterations
 #
@@ -34,23 +34,18 @@ class Iteration < ActiveRecord::Base
   has_many :stories
   
   validates_presence_of :name
-  validates_presence_of :start
+  validates_presence_of :start_at
   validates_presence_of :deadline
   validates_presence_of :project
 
   validates_uniqueness_of :name, :scope => :project_id
 
   def validate
-    if deadline && start
-      errors.add(:deadline, "should be greater then #{start}.") if deadline < start
+    if deadline && start_at
+      errors.add(:deadline, "should be greater then #{start_at}.") if deadline < start_at
     end
   end
   
-  def working_days
-    events = Icalendar.parse(Calendar.find_by_name('Berlin').ics).first.events.map { |event| event.dtstart }
-    (start.to_datetime..deadline.to_datetime).reject { |day| events.include?(day) || [0, 6].include?(day.wday) }
-  end
-    
   private
   
     def estimated_hours
@@ -58,7 +53,7 @@ class Iteration < ActiveRecord::Base
     end
     
     def hours_left_on day
-      hours = stories.map { |story| story.hours_left_on day }.compact
+      hours = StoryHistory.find_all_by_story_id(stories.map(&:id), :conditions => ['day = ?', day]).map(&:hours_left)
       hours.empty? ? nil : hours.sum
     end
 

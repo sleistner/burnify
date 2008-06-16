@@ -15,6 +15,14 @@ Chart = new Class({
     this.theme = options.theme || this.themes.blue;
     this.setSize(options.width, options.height);
     CanvasTextFunctions.enable(this.context);
+    document.addEvent('chart:update', this.load.bind(this));
+  },
+  
+  load: function(url) {
+    if($defined(url)) {
+      this.url = url;
+    }
+    new Request.JSON({ url: this.url, method: 'get', onComplete: this.render.bind(this) }).send();
   },
   
   render: function(data) {

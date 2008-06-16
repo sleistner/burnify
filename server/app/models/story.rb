@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080616072435
+# Schema version: 20080616190553
 #
 # Table name: stories
 #
@@ -10,6 +10,8 @@
 #  estimated_hours :integer(11)     
 #  created_at      :datetime        
 #  updated_at      :datetime        
+#  start           :datetime        
+#  deadline        :datetime        
 #
 
 class Story < ActiveRecord::Base
@@ -25,13 +27,20 @@ class Story < ActiveRecord::Base
 
   validates_numericality_of :estimated_hours, :greater_than_or_equal_to => 0
 
+  def start_at
+    read_attribute(:start_at) || iteration.start_at
+  end
+
+  def deadline
+    read_attribute(:deadline) || iteration.deadline
+  end
+
   def hours_left_on day
     histories.find_by_day(day).hours_left rescue nil
   end
-  
-  private
-  
-    def working_days
-      iteration.working_days
-    end
+
+  def set_hours_left day, left
+    histories.find_or_create_by_day(day).update_attributes! :hours_left => left
+  end
+
 end

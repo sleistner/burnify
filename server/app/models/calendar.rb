@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080616072435
+# Schema version: 20080616190553
 #
 # Table name: calendars
 #

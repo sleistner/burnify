@@ -14,7 +14,7 @@ class IterationsControllerTest < ActionController::TestCase
 
     xhr :post, :create, :iteration => {
       :name => 'foo',
-      :start => Time.now,
+      :start_at => Time.now,
       :deadline => 23.days.from_now,
       :project_id => p.id
     }

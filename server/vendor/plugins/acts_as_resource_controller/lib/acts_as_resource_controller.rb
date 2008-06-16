@@ -66,6 +66,7 @@ module ActsAsResourceController
     def render_formats data
       respond_to do |format|
         format.json { render :json => data }
+        format.js { render :json => data, :content_type => 'application/json' }
         format.xml  { render :xml  => data }
       end
     end

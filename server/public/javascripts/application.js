@@ -19,11 +19,8 @@ $extend(Array.prototype, {
 });
 
 window.addEvent('load', function() {
-  iteration_chart = new Chart({ canvas: $('iteration_chart'), width: 600, height: 375 });
-  // story_chart = new Chart({ canvas: $('story_chart'), width: 350, height: 250 });
+  chart = new Chart({ canvas: $('iteration_chart'), width: 600, height: 375 });
   document.addEvent('iteration:changed', function(iteration_id) {
-    var url = '/iterations/' + iteration_id + '/chart_data';
-    new Request.JSON({ url: url, method: 'get', onComplete: iteration_chart.render.bind(iteration_chart) }).send();
-    // story_chart.render(data);
+    chart.load('/iterations/' + iteration_id + '/chart_data');
   });
 });

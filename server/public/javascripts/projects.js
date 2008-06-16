@@ -119,6 +119,7 @@ Stories = new Class({ Extends: FxResource,
     this.configure({ type: 'stories', root: 'story' });
     document.addEvent('project:changed',   this.onProjectChanged.bind(this));
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
+    document.addEvent('story:changed', this.onStoryChanged.bind(this));
     this.render([]);
   },
   
@@ -128,6 +129,35 @@ Stories = new Class({ Extends: FxResource,
 
   onIterationChanged: function(iteration_id) {
     this.load('/iterations/' + iteration_id + '/' + this.type);
+  },
+
+  onStoryChanged: function(story_id) {
+    console.info('story', story_id);
+
+    new Request.JSON({ url: '/stories/' + story_id + '/working_days',
+      method: 'get',
+      onComplete: function(working_days) {
+        var container = new Element('div');
+        container.adopt(new Element('p').appendText('estimated_hours: '+working_days.estimated_hours));
+        var ul = new Element('ul');
+        ul.adopt(working_days.days.map(function(working_day) {
+          var day = new Date(working_day.day);
+          var day_s = day.getDay() + '-' + day.getMonth() + '-' +  day.getFullYear();
+          var li = new Element('li');
+          var input = new Element('input', { value: working_day.left || '' });
+          input.addEvent('change', function(event) {
+            // console.info('day', working_day.day, 'value', input.value);
+            new Request({ url: '/stories/' + story_id + '/set_hours_left', onComplete: function() {
+              document.fireEvent('chart:update');
+            }}).send('day='+working_day.day+'&left='+input.value);
+            
+          })
+          return li.adopt(new Element('label').appendText(day_s).adopt(input));
+        }));
+        jQuery.facebox(container.adopt(ul));
+      }
+    }).send();
+
   }
 });
 
