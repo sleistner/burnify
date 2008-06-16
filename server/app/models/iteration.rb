@@ -48,7 +48,7 @@ class Iteration < ActiveRecord::Base
   def chart_data
     returning Hash.new do |iteration|
       iteration[:estimated_hours] = stories.map(&:estimated_hours).sum
-      working_days.each { |day| (iteration[:days] ||= []) << { :day => day, :left => hours_left_on(day) } }
+      working_days.each { |day| (iteration[:days] ||= []) << { :day => day.strftime('%d.%m'), :left => hours_left_on(day) } }
     end
   end
   

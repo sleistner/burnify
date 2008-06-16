@@ -1,6 +1,6 @@
 
 Chart = new Class({
-  gap: 30,
+  gap: 35,
   font: 'sans',
   fontsize: 10,
   themes: {
@@ -49,7 +49,6 @@ Chart = new Class({
   drawGridLines: function() {
     this.context.lineWidth = .06;
     
-    // var r = 150;
     for(var i = 0; i < this.max_x; i++) {
       var x = this.gap + (i * this.step_x), label = this.data.days[i].day.toString();
       this.context.beginPath();
@@ -57,10 +56,8 @@ Chart = new Class({
       this.context.lineTo(x, this.axis_height + (this.gap / 2));
       this.context.stroke();
       this.context.save();
-      // this.context.rotate(r);
-      this.context.drawText(this.font, this.fontsize, x - (this.fontsize / 2), this.axis_height + (this.gap / (i % 2 == 0 ? 2 : 1)), label);
+      this.context.drawText(this.font, this.fontsize, x - (this.gap / 2), this.axis_height + (this.gap / (i % 2 == 0 ? 2.3 : 1.3)), label);
       this.context.save();
-      // this.context.rotate(-r);
     }
 
     for(var i = this.steps_y; i >= 0; i--) {
@@ -69,7 +66,7 @@ Chart = new Class({
       this.context.moveTo(this.gap / 2, y);
       this.context.lineTo(this.gap + this.axis_width, y);
       this.context.stroke();
-      this.context.drawText(this.font, this.fontsize, 0, y - (this.fontsize / 2), label);
+      this.context.drawText(this.font, this.fontsize, 5, y + (this.fontsize / 2), label);
       this.context.save();
     }
   },
