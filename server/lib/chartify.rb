@@ -2,9 +2,14 @@ module Chartify
 
   def chart_data
     returning Hash.new do |hash|
-      hash[:title] = "#{self.class.name}: #{name}"
+      hash[:type] = self.class.name
+      hash[:title] = name
       hash[:estimated_hours] = estimated_hours
-      working_days.each { |day| (hash[:days] ||= []) << { :day => day.strftime('%Y/%m/%d'), :left => hours_left_on(day) } }
+      hash[:start_at] = start_at
+      hash[:deadline] = deadline
+      hash[:color] = color
+      hash[:id] = id
+      working_days.each { |day| (hash[:days] ||= []) << { :day => day.strftime('%Y/%m/%d'), :hours_left => hours_left_on(day) } }
     end
   end
 

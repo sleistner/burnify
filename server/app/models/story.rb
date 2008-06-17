@@ -50,8 +50,8 @@ class Story < ActiveRecord::Base
     histories.find_by_day(day).hours_left rescue nil
   end
 
-  def set_hours_left day, left
-    histories.find_or_create_by_day(day).update_attributes! :hours_left => left
+  def set_hours_left day, hours_left
+    histories.find_or_create_by_day(day).update_attributes! :hours_left => hours_left
   end
 
   private

@@ -8,45 +8,51 @@ module ActsAsResourceController
 
     def acts_as_resource_controller options = {}
       include ResourceMethods
+
       define_method(:belongs_to) { options[:belongs_to] }
       define_method(:order) { options[:order] || 'id ASC' }
+      define_method(:conditions) { (options[:conditions] ||= []).map { |v| v.is_a?(Proc) ? v.call(self) : v } }
     end
 
-  end
+  end# ClassMethods
 
   module ResourceMethods
 
     def create
-      instance = model.create! params[model_name]
+      self.instance = model.create! params[model_name]
       headers['Location'] = send "#{model_name}_url", instance
       head :ok
     end
 
     def index
-      if belongs_to?
-        render_formats model.find(:all, :conditions => ["#{belongs_to_id} = ?", params[belongs_to_id]], :order => order)
-      else
-        render_formats model.all(:order => order)
+      self.instances = with_scope do
+        options = returning(:order => order) { |o| o[:conditions] = ["#{belongs_to_id} = ?", params[belongs_to_id]] if belongs_to? }
+        model.find :all, options
       end
+      render_formats instances, true
     end
 
     def show
-      instance = model.find(params[:id])
+      self.instance = with_scope { model.find params[:id] }
       render_formats instance
     end
 
     def update
-      instance = model.find(params[:id])
-      instance.update_attributes(params[model_name])
+      self.instance = with_scope { model.find params[:id] }
+      instance.update_attributes!(params[model_name])
       render_formats instance
     end
 
     def destroy
-      model.destroy model.find(params[:id])
+      model.destroy with_scope { model.find params[:id] }
       head :ok
     end
 
   private
+  
+    def with_scope
+      model.send(:with_scope, :find => { :conditions => conditions }) { yield }
+    end
 
     def belongs_to?
       !belongs_to.nil? && !params[belongs_to_id].nil?
@@ -64,14 +70,34 @@ module ActsAsResourceController
       @model ||= model_name.camelize.constantize
     end
     
-    def render_formats data
+    def instance=(value)
+      instance_variable_set "@#{model_name}", value
+    end
+    
+    def instance
+      instance_variable_get "@#{model_name}"
+    end
+    
+    def instances=(value)
+      instance_variable_set "@#{model_name.pluralize}", value
+    end
+    
+    def instances
+      instance_variable_get "@#{model_name.pluralize}"
+    end
+    
+    def render_formats data, list = false
       respond_to do |format|
+        format.html
         format.json { render :json => data }
         format.js { render :json => data, :content_type => 'application/json' }
         format.xml  { render :xml  => data }
+        format.ext do
+          render :json => list ? { :results => data.size, model_name.pluralize.to_sym => data } : { :success => true, :data => [data] }
+        end if defined? Mime::EXT
       end
     end
   
-  end# ClassMethods
+  end# ResourceMethods
 
-end
+end# ActsAsResourceController
