@@ -158,6 +158,8 @@ HistoryDialog = new Class({
     this.sfx = new Fx.Scroll('working_days');
     this.sfx.set(0, 0);
     this.storeInputPositions();
+
+    // new MooRainbow('rainbow');
   },
 
   storeInputPositions: function() {
@@ -170,7 +172,8 @@ HistoryDialog = new Class({
   createHtml: function() {
     var div = new Element('div', { 'class': 'history_dialog' }).adopt(
       new Element('h1').appendText(this.working_days.title),
-      new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours')
+      new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours'),
+      new Element('div', { id: 'rainbow' })
     );
     
     var wd = new Element('div', { 'id': 'working_days' });

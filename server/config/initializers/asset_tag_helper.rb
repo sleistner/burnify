@@ -1,1 +1,1 @@
-ActionView::Helpers::AssetTagHelper::register_javascript_include_default 'mootools-core', 'mootools-more', 'chart'
+ActionView::Helpers::AssetTagHelper::register_javascript_include_default 'mootools-core', 'mootools-more', 'jquery-1.2.6.min', 'chart'
