@@ -148,13 +148,23 @@ HistoryDialog = new Class({
   weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
   initialize: function(story_id, working_days) {
-    console.info(story_id, working_days);
     this.story_id     = story_id;
     this.working_days = working_days;
   },
 
   show: function() {
     jQuery.facebox( this.createHtml());
+
+    this.sfx = new Fx.Scroll('working_days');
+    this.sfx.set(0, 0);
+    this.storeInputPositions();
+  },
+
+  storeInputPositions: function() {
+    var offsetY = $('working_days').getPosition().y + $('working_days').getHeight()/2;
+    this.inputs.getKeys().each( function(k){
+      this.inputs.set(k, $(k).getPosition().y-offsetY+($(k).getHeight()/2));
+    }.bind(this));
   },
 
   createHtml: function() {
@@ -162,27 +172,40 @@ HistoryDialog = new Class({
       new Element('h1').appendText(this.working_days.title),
       new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours')
     );
-    var table = new Element('table', { 'class': 'workings_days', width: '100%' }).adopt( this.working_days.days.map( function(wday) {
+    var wd = new Element('div', { 'id': 'working_days' });
+    this.inputs = new Hash();
+    var table = new Element('table', { 'class': 'working_days', width: '100%' }).adopt( this.working_days.days.map( function(wday) {
       var tr = new Element('tr');
       tr.adopt(new Element('td', { 'class': 'left' }).appendText(this.getFormattedDay(wday.day)));
-    
-      var input = new Element('input', { value: wday.left, size: 4 });
+
+      var day_id = this.getDayId(wday.day);
+      this.inputs.set(day_id, 0);
+      var input = new Element('input', { value: wday.left, size: 4, id: day_id });
 
       input.addEvent('change', function(event) {
         new Request({ url: '/stories/' + this.story_id + '/set_hours_left', onComplete: function() {
           document.fireEvent('chart:update');
         }}).send('day='+wday.day+'&left='+input.value);
       }.bind(this));
+      
+      input.addEvent('focus', function(event) {
+        this.sfx.start(0, this.inputs.get(event.target.id));
+      }.bind(this));
           
       return tr.adopt(new Element('td', { 'class': 'right' } ).adopt(input));
     }.bind(this)));
 
-    return div.adopt(table);
+    return div.adopt(wd.adopt(table));
   },
 
   getFormattedDay: function(day) {
     var day = new Date(day);
-    return this.weekDays[day.getDay()] + "'" + day.getDate() + '.' + day.getMonth();
+    return this.weekDays[day.getDay()] + ", " + day.getDate() + '.' + day.getMonth();
+  },
+
+  getDayId: function(day) {
+    var day = new Date(day);
+    return 'day_' + day.getDate() + day.getMonth();
   }
 
 });

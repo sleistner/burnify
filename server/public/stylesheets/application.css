@@ -88,14 +88,18 @@ img.loading {
 /* --------------------------------------------- */
 
 /* --- HistoryDialog --------------------------- */
+#working_days {
+  overflow: hidden;
+  height: 100px;
+}
 div.history_dialog, div.history_dialog td, div.history_dialog input {
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
-  font-size: 12px;
+  font-size: 16px;
 }
 div.history_dialog h1 {
   margin: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
 }
 div.history_dialog p {
@@ -103,17 +107,17 @@ div.history_dialog p {
   padding: 0;
 }
 table.working_days {
+  margin-top: 2em;
+  padding-bottom: 2em;
   border: 0;
 }
 td.left {
   text-align: right;
   padding: 0 0.5 0 0 !important;
-/*  padding: 0 0;*/
 }
 td.right {
   text-align: left;
   padding: 0 0 0 1.5em !important;
-/*  padding: 0 0;*/
 }
 /* --------------------------------------------- */
 
