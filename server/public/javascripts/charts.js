@@ -14,9 +14,10 @@ Chart = new Class({
     this.context = this.canvas.getContext('2d');
     this.theme = options.theme || this.themes.blue;
     this.setSize(options.width, options.height);
+    this.selected_stories = new Array();
     CanvasTextFunctions.enable(this.context);
     document.addEvent('chart:update', this.load.bind(this));
-    document.addEvent('chart:story:toogle', this.reRender.bind(this));
+    document.addEvent('story:changed', this.onStorySelected.bind(this));
   },
   
   load: function(url) {
@@ -27,9 +28,9 @@ Chart = new Class({
   },
   
   render: function(data) {
+    this.updateAttributes(data);
     this.context.strokeStyle = this.theme.color;
     this.drawBackground();
-    this.updateAttributes(data);
     this.drawAxes();
     this.drawGridLines();
     this.drawExpectedLine(this.data);
@@ -37,6 +38,12 @@ Chart = new Class({
     var stories = this.filterStories(this.data.stories);
     stories.each(this.drawExpectedLine.bind(this));
     stories.each(this.drawDevelopingLine.bind(this));
+  },
+
+  reRender: function() {
+    if($chk(this.data)) {
+      this.render(this.data);
+    }
   },
   
   drawBackground: function() {
@@ -121,10 +128,9 @@ Chart = new Class({
     this.reRender();
   },
   
-  reRender: function() {
-    if($chk(this.data)) {
-      this.render(this.data);
-    }
+  onStorySelected: function(story_id) {
+    with(this.selected_stories) { (contains(story_id) && erase(story_id)) || push(story_id) }
+    this.reRender();
   },
   
   positionX: function(value) {
@@ -137,8 +143,8 @@ Chart = new Class({
   },
   
   updateAttributes: function(data) {
+    if(this.data && this.data.id != data.id) { this.selected_stories.empty() }
     this.data = data;
-    this.selectedStories = [];
     this.max_x = this.data.days.length;
     this.step_x = this.axis_width / this.max_x;
     this.rated_days = this.filterDays(this.data.days);
@@ -154,7 +160,8 @@ Chart = new Class({
   },
   
   filterStories: function(stories) {
-    return (stories || []).filter(this.selectedStories.contains.bind(this.selectedStories));
+    var selected_stories = this.selected_stories;
+    return (stories || []).filter(function(story) { return selected_stories.contains(story.id) });
   }
   
 });

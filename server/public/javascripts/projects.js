@@ -148,7 +148,6 @@ HistoryDialog = new Class({
   weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
 
   initialize: function(story_id, working_days) {
-    console.info(story_id, working_days);
     this.story_id     = story_id;
     this.working_days = working_days;
   },
@@ -166,12 +165,12 @@ HistoryDialog = new Class({
       var tr = new Element('tr');
       tr.adopt(new Element('td', { 'class': 'left' }).appendText(this.getFormattedDay(wday.day)));
     
-      var input = new Element('input', { value: wday.left, size: 4 });
+      var input = new Element('input', { value: wday.hours_left, size: 4 });
 
       input.addEvent('change', function(event) {
         new Request({ url: '/stories/' + this.story_id + '/set_hours_left', onComplete: function() {
           document.fireEvent('chart:update');
-        }}).send('day='+wday.day+'&left='+input.value);
+        }}).send('day='+wday.day+'&hours_left='+input.value);
       }.bind(this));
           
       return tr.adopt(new Element('td', { 'class': 'right' } ).adopt(input));
