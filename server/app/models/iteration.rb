@@ -53,8 +53,8 @@ class Iteration < ActiveRecord::Base
     end
     
     def hours_left_on day
-      hours = StoryHistory.find_all_by_story_id(stories.map(&:id), :conditions => ['day = ?', day]).map(&:hours_left)
-      hours.empty? ? nil : hours.sum
+      progresses = stories.map { |story| story.progress_on day }
+      progresses.all?(&:empty?) ? nil : progresses.map(&:hours_left).sum
     end
 
 end

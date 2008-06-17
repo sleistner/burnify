@@ -9,6 +9,7 @@ module ActsAsResourceController
     def acts_as_resource_controller options = {}
       include ResourceMethods
       define_method(:belongs_to) { options[:belongs_to] }
+      define_method(:order) { options[:order] || 'id ASC' }
     end
 
   end
@@ -23,9 +24,9 @@ module ActsAsResourceController
 
     def index
       if belongs_to?
-        render_formats model.find(:all, :conditions => ["#{belongs_to_id} = ?", params[belongs_to_id]])
+        render_formats model.find(:all, :conditions => ["#{belongs_to_id} = ?", params[belongs_to_id]], :order => order)
       else
-        render_formats model.all
+        render_formats model.all(:order => order)
       end
     end
 

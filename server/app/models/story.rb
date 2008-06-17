@@ -17,6 +17,19 @@
 class Story < ActiveRecord::Base
   include Chartify
   
+  class Progress
+    attr_accessor :hours_left
+    attr_writer :empty
+    
+    def initialize
+      @empty = true
+    end
+    
+    def empty?
+      @empty
+    end
+  end
+  
   belongs_to :iteration
   has_many :histories, :class_name => 'StoryHistory'
 
@@ -33,6 +46,17 @@ class Story < ActiveRecord::Base
 
   def deadline
     read_attribute(:deadline) || iteration.deadline
+  end
+  
+  def progress_on day
+    returning Progress.new do |progress|
+      if hours_left = hours_left_on(day)
+        progress.hours_left =  hours_left
+        progress.empty = false
+      else
+        progress.hours_left = histories.sort.last.hours_left rescue progress.hours_left = estimated_hours
+      end
+    end
   end
 
   def hours_left_on day

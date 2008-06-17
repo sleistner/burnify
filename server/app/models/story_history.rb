@@ -12,6 +12,8 @@
 #
 
 class StoryHistory < ActiveRecord::Base
+  include Comparable
+  
   belongs_to :story
 
   validates_presence_of :story
@@ -20,4 +22,8 @@ class StoryHistory < ActiveRecord::Base
   validates_uniqueness_of :day, :scope => :story_id
   
   validates_numericality_of :hours_left, :greater_than_or_equal_to => 0
+  
+  def <=> other
+    day <=> other.day
+  end
 end
