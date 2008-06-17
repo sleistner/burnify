@@ -41,7 +41,7 @@ class Story < ActiveRecord::Base
         progress.hours_left = hours_left
         progress.empty = false
       else
-        progress.hours_left = histories.sort.last.hours_left rescue progress.hours_left = estimated_hours
+        progress.hours_left = histories.sort.last.hours_left rescue estimated_hours
       end
     end
   end
