@@ -16,6 +16,7 @@ Chart = new Class({
     this.setSize(options.width, options.height);
     CanvasTextFunctions.enable(this.context);
     document.addEvent('chart:update', this.load.bind(this));
+    document.addEvent('chart:story:toogle', this.reRender.bind(this));
   },
   
   load: function(url) {
@@ -31,8 +32,11 @@ Chart = new Class({
     this.updateAttributes(data);
     this.drawAxes();
     this.drawGridLines();
-    this.drawExpectedLine();
-    this.drawDevelopingLine();
+    this.drawExpectedLine(this.data);
+    this.drawDevelopingLine(this.data);
+    var stories = this.filterStories(this.data.stories);
+    stories.each(this.drawExpectedLine.bind(this));
+    stories.each(this.drawDevelopingLine.bind(this));
   },
   
   drawBackground: function() {
@@ -78,28 +82,30 @@ Chart = new Class({
     }
   },
   
-  drawExpectedLine: function() {
-    this.context.strokeStyle = 'orange';
+  drawExpectedLine: function(data) {
+    this.context.strokeStyle = data.color;
     this.context.beginPath();
     this.context.lineWidth = .5;
-    this.context.moveTo(this.positionX(this.data.days[0].day), this.positionY(this.data.estimated_hours));
-    this.context.lineTo(this.positionX(this.data.days.getLast().day), this.positionY(0));
+    this.context.moveTo(this.positionX(data.days[0].day), this.positionY(data.estimated_hours));
+    this.context.lineTo(this.positionX(data.days.getLast().day), this.positionY(0));
     this.context.stroke();
     this.context.save();
   },
   
-  drawDevelopingLine: function() {
-    this.context.lineWidth = 2;
-    this.context.strokeStyle = 'green';
-    var prev = this.data.days[0];
-    this.rated_days.each(function(e) {
-      this.context.beginPath();
-      this.context.moveTo(this.positionX(prev.day), this.positionY(prev.left));
-      this.context.lineTo(this.positionX(e.day), this.positionY(e.left));
-      this.context.stroke();
-      this.context.save();
-      prev = e;
-    }, this);
+  drawDevelopingLine: function(data) {
+    if(prev = data.days[0]) {
+      this.context.lineWidth = 2;
+      this.context.strokeStyle = data.color;
+
+      this.filterDays(data.days).each(function(e) {
+        this.context.beginPath();
+        this.context.moveTo(this.positionX(prev.day), this.positionY(prev.hours_left));
+        this.context.lineTo(this.positionX(e.day), this.positionY(e.hours_left));
+        this.context.stroke();
+        this.context.save();
+        prev = e;
+      }, this);
+    }
   },
   
   setSize: function(width, height) {
@@ -132,14 +138,23 @@ Chart = new Class({
   
   updateAttributes: function(data) {
     this.data = data;
+    this.selectedStories = [];
     this.max_x = this.data.days.length;
     this.step_x = this.axis_width / this.max_x;
-    this.rated_days = this.data.days.filter(function(e) { return e.left != null });
-    this.max_hours = this.rated_days.map(function(e) { return e.left }).sort(function(a, b) { return a - b }).getLast() + 10;
+    this.rated_days = this.filterDays(this.data.days);
+    this.max_hours = this.rated_days.map(function(e) { return e.hours_left }).sort(function(a, b) { return a - b }).getLast() + 10;
     this.max_y = Math.max(this.data.estimated_hours, this.max_hours);
     this.step_y = 10;
     this.steps_y = this.max_y / this.step_y;
     this.wide_y = (this.axis_height / this.steps_y);
+  },
+  
+  filterDays: function(days) {
+    return days.filter(function(e) { return e.hours_left != null });
+  },
+  
+  filterStories: function(stories) {
+    return (stories || []).filter(this.selectedStories.contains.bind(this.selectedStories));
   }
   
 });

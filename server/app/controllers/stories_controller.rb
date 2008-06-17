@@ -7,7 +7,7 @@ class StoriesController < ApplicationController
   end
 
   def set_hours_left
-    Story.find(params[:id]).set_hours_left(params[:day], params[:left])
+    Story.find(params[:id]).set_hours_left(params[:day], params[:hours_left])
     head :ok
   end
 

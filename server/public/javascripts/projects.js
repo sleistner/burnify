@@ -144,12 +144,12 @@ Stories = new Class({ Extends: FxResource,
           var day = new Date(working_day.day);
           var day_s = day.getDay() + '-' + day.getMonth() + '-' +  day.getFullYear();
           var li = new Element('li');
-          var input = new Element('input', { value: working_day.left });
+          var input = new Element('input', { value: working_day.hours_left });
           input.addEvent('change', function(event) {
             // console.info('day', working_day.day, 'value', input.value);
             new Request({ url: '/stories/' + story_id + '/set_hours_left', onComplete: function() {
               document.fireEvent('chart:update');
-            }}).send('day='+working_day.day+'&left='+input.value);
+            }}).send('day='+working_day.day+'&hours_left='+input.value);
             
           })
           return li.adopt(new Element('label').appendText(working_day.day).adopt(input));
