@@ -39,7 +39,7 @@ class StoryTest < ActiveSupport::TestCase
 
   def test_should_generate_chart_data
     it = iterations(:june)
-    it.update_attributes :start => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
+    it.update_attributes :start_at => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
     
     st = stories(:urar)
     st.histories.create :hours_left => 10, :day => it.working_days.first, :story => st

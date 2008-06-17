@@ -63,7 +63,6 @@ Chart = new Class({
       this.context.moveTo(x, 0);
       this.context.lineTo(x, this.axis_height + (this.gap / 2));
       this.context.stroke();
-      this.context.save();
       this.context.drawText(this.font, this.fontsize, x - (this.gap / 2), this.axis_height + (this.gap / (i % 2 == 0 ? 2.3 : 1.3)), label);
       this.context.save();
     }

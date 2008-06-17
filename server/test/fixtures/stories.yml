@@ -2,3 +2,8 @@ urar:
   name: 'User Rights And Roles'
   estimated_hours: 170
   iteration: june
+
+faago:
+  name: 'Forecast as a guideline only'
+  estimated_hours: 20
+  iteration: june

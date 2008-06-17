@@ -9,8 +9,9 @@ class StoriesControllerTest < ActionController::TestCase
   def test_should_return_working_days_list
     story = stories(:urar)
     xhr :get, :working_days, :id => story.id
-    working_days = ActiveSupport::JSON.decode(@response.body)
-    assert_equal story.start_at, working_days.first.to_datetime
-    assert_equal story.deadline, working_days.last.to_datetime
+    working_days = ActiveSupport::JSON.decode(@response.body)['days']
+
+    assert_equal story.start_at, working_days.first['day'].to_datetime
+    assert_equal story.deadline, working_days.last['day'].to_datetime
   end
 end

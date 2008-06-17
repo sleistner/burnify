@@ -7,7 +7,7 @@ class IterationTest < ActiveSupport::TestCase
   end
 
   def test_should_not_create_without_project
-    it = Iteration.new :name => 'foo', :start => Time.now, :deadline => 23.days.from_now
+    it = Iteration.new :name => 'foo', :start_at => Time.now, :deadline => 23.days.from_now
     assert !it.valid?
     assert_not_nil it.errors.on(:project)
   end
@@ -15,7 +15,7 @@ class IterationTest < ActiveSupport::TestCase
   def test_create_with_project_as_object
     pr = projects(:connect)
 
-    it = Iteration.create :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project => pr
+    it = Iteration.create :name => 'foo', :start_at => Time.now, :deadline => 23.days.from_now, :project => pr
     assert_valid it
 
     assert_equal Project.find(pr.id).iterations.find_by_name('foo').id, it.id
@@ -24,7 +24,7 @@ class IterationTest < ActiveSupport::TestCase
   def test_create_with_project_id
     pr = projects(:connect)
 
-    it = Iteration.create :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project_id => pr.id
+    it = Iteration.create :name => 'foo', :start_at => Time.now, :deadline => 23.days.from_now, :project_id => pr.id
     assert_valid it
 
     assert_equal Project.find(pr.id).iterations.find_by_name('foo').id, it.id
@@ -33,22 +33,26 @@ class IterationTest < ActiveSupport::TestCase
   def test_should_not_create_with_invalid_project_id
     Project.find(23).delete rescue nil
 
-    it = Iteration.new :name => 'foo', :start => Time.now, :deadline => 23.days.from_now, :project_id => 23
+    it = Iteration.new :name => 'foo', :start_at => Time.now, :deadline => 23.days.from_now, :project_id => 23
     assert !it.valid?
     assert_not_nil it.errors.on(:project)
   end
   
   def test_should_generate_chart_data
-    it = Iteration.new :name => 'foo', :start => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
-    it.stories.build :estimated_hours => 20
-    it.stories.build :estimated_hours => 40
+    it = iterations(:june)
+    it.update_attributes :start_at => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
+    
+    st = stories(:urar)
+    st.histories.create :hours_left => 20, :day => it.working_days.first, :story => st
+    st.histories.create :hours_left => 40, :day => it.working_days.last, :story => st
+    
     chart_data = it.chart_data
-    assert_equal 60, chart_data[:estimated_hours]
+    assert_equal it.stories.map(&:estimated_hours).sum, chart_data[:estimated_hours]
     assert_equal 2, chart_data[:days].size
   end
 
   def test_should_generate_empty_chart_data
-    it = Iteration.new :name => 'foo', :start => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
+    it = Iteration.new :name => 'foo', :start_at => Date.new(2008, 05, 01).to_datetime, :deadline => Date.new(2008, 05, 05).to_datetime
     chart_data = it.chart_data
     assert_equal 0, chart_data[:estimated_hours]
     assert_equal 2, chart_data[:days].size

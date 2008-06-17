@@ -46,6 +46,14 @@ class Iteration < ActiveRecord::Base
     end
   end
   
+  def chart_data_with_extension
+    returning chart_data_without_extension do |chart_data|
+      stories.each { |stary| (chart_data[:stories] ||= []) << stary.chart_data }
+    end
+  end
+  
+  alias_method_chain :chart_data, :extension
+  
   private
   
     def estimated_hours

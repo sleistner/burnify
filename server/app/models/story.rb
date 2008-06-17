@@ -17,19 +17,6 @@
 class Story < ActiveRecord::Base
   include Chartify
   
-  class Progress
-    attr_accessor :hours_left
-    attr_writer :empty
-    
-    def initialize
-      @empty = true
-    end
-    
-    def empty?
-      @empty
-    end
-  end
-  
   belongs_to :iteration
   has_many :histories, :class_name => 'StoryHistory'
 
@@ -51,7 +38,7 @@ class Story < ActiveRecord::Base
   def progress_on day
     returning Progress.new do |progress|
       if hours_left = hours_left_on(day)
-        progress.hours_left =  hours_left
+        progress.hours_left = hours_left
         progress.empty = false
       else
         progress.hours_left = histories.sort.last.hours_left rescue progress.hours_left = estimated_hours
@@ -67,4 +54,15 @@ class Story < ActiveRecord::Base
     histories.find_or_create_by_day(day).update_attributes! :hours_left => left
   end
 
-end
+  private
+
+    class Progress
+      attr_accessor :hours_left, :empty
+    
+      def initialize; @empty = true end
+
+      def empty?; @empty end
+      
+    end#Progress
+    
+end#Story
