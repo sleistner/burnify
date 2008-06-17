@@ -172,11 +172,13 @@ HistoryDialog = new Class({
       new Element('h1').appendText(this.working_days.title),
       new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours')
     );
+    
     var wd = new Element('div', { 'id': 'working_days' });
     this.inputs = new Hash();
     var table = new Element('table', { 'class': 'working_days', width: '100%' }).adopt( this.working_days.days.map( function(wday) {
       var tr = new Element('tr');
       tr.adopt(new Element('td', { 'class': 'left' }).appendText(this.getFormattedDay(wday.day)));
+      var day_id = this.getDayId(wday.day);
       this.inputs.set(day_id, 0);
       var input = new Element('input', { value: wday.hours_left, size: 4, id: day_id });
       input.addEvent('change', function(event) {
