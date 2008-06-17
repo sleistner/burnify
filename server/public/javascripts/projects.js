@@ -122,7 +122,7 @@ Stories = new Class({ Extends: FxResource,
     document.addEvent('story:changed', this.onStoryChanged.bind(this));
     this.render([]);
   },
-  
+
   onProjectChanged: function() {
     this.render([]);
   },
@@ -132,35 +132,60 @@ Stories = new Class({ Extends: FxResource,
   },
 
   onStoryChanged: function(story_id) {
-    console.info('story', story_id);
-
     new Request.JSON({ url: '/stories/' + story_id + '/working_days',
       method: 'get',
       onComplete: function(working_days) {
-        var container = new Element('div');
-        container.adopt(new Element('p').appendText('estimated_hours: '+working_days.estimated_hours));
-        var ul = new Element('ul');
-        ul.adopt(working_days.days.map(function(working_day) {
-          var day = new Date(working_day.day);
-          var day_s = day.getDay() + '-' + day.getMonth() + '-' +  day.getFullYear();
-          var li = new Element('li');
-          var input = new Element('input', { value: working_day.hours_left });
-          input.addEvent('change', function(event) {
-            // console.info('day', working_day.day, 'value', input.value);
-            new Request({ url: '/stories/' + story_id + '/set_hours_left', onComplete: function() {
-              document.fireEvent('chart:update');
-            }}).send('day='+working_day.day+'&hours_left='+input.value);
-            
-          })
-          return li.adopt(new Element('label').appendText(working_day.day).adopt(input));
-        }));
-        jQuery.facebox(container.adopt(ul));
+        var dialog = new HistoryDialog(story_id, working_days);
+        dialog.show();
       }
     }).send();
-
   }
 });
 
+
+HistoryDialog = new Class({
+
+  weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+
+  initialize: function(story_id, working_days) {
+    console.info(story_id, working_days);
+    this.story_id     = story_id;
+    this.working_days = working_days;
+  },
+
+  show: function() {
+    jQuery.facebox( this.createHtml());
+  },
+
+  createHtml: function() {
+    var div = new Element('div', { 'class': 'history_dialog' }).adopt(
+      new Element('h1').appendText(this.working_days.title),
+      new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours')
+    );
+    var table = new Element('table', { 'class': 'workings_days', width: '100%' }).adopt( this.working_days.days.map( function(wday) {
+      var tr = new Element('tr');
+      tr.adopt(new Element('td', { 'class': 'left' }).appendText(this.getFormattedDay(wday.day)));
+    
+      var input = new Element('input', { value: wday.left, size: 4 });
+
+      input.addEvent('change', function(event) {
+        new Request({ url: '/stories/' + this.story_id + '/set_hours_left', onComplete: function() {
+          document.fireEvent('chart:update');
+        }}).send('day='+wday.day+'&left='+input.value);
+      }.bind(this));
+          
+      return tr.adopt(new Element('td', { 'class': 'right' } ).adopt(input));
+    }.bind(this)));
+
+    return div.adopt(table);
+  },
+
+  getFormattedDay: function(day) {
+    var day = new Date(day);
+    return this.weekDays[day.getDay()] + "'" + day.getDate() + '.' + day.getMonth();
+  }
+
+});
 
 
 window.addEvent('domready', function() {
