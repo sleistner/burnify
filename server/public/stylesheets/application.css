@@ -25,10 +25,6 @@ div#selections {
   margin: 0 auto;
 }
 
-canvas#iteration_chart {
-/*  float: left;*/
-}
-
 div#selections div {
   width: 220px;
   margin-right: 20px;
