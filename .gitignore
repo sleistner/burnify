@@ -1,3 +1,4 @@
 server/tmp/*
 server/log/*
 .DS_Store
+server/db/schema.rb
