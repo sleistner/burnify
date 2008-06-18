@@ -44,7 +44,7 @@ class StoryTest < ActiveSupport::TestCase
     st = stories(:urar)
     st.histories.create :hours_left => 10, :day => it.working_days.first, :story => st
     chart_data = st.chart_data
-    assert_equal 10, chart_data[:days].first[:left]
-    assert_equal nil, chart_data[:days].last[:left]
+    assert_equal 10, chart_data[:days].first[:hours_left]
+    assert_equal nil, chart_data[:days].last[:hours_left]
   end
 end

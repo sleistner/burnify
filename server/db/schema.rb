@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080616194152) do
+ActiveRecord::Schema.define(:version => 20080617193638) do
 
   create_table "calendars", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20080616194152) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "project_id",  :limit => 11
+    t.string   "color",                     :default => "#cccccc"
   end
 
   add_index "iterations", ["project_id"], :name => "fk_iterations_projects"
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20080616194152) do
     t.datetime "updated_at"
     t.datetime "start_at"
     t.datetime "deadline"
+    t.string   "color",                         :default => "#cccccc"
   end
 
   add_index "stories", ["iteration_id"], :name => "fk_stories_iterations"
