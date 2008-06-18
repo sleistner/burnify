@@ -178,7 +178,8 @@ HistoryDialog = new Class({
   createHtml: function() {
     var div = new Element('div', { 'class': 'history_dialog' }).adopt(
       new Element('h1').appendText(this.working_days.title),
-      new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours')
+      new Element('p').appendText(this.working_days.estimated_hours + ' estimated hours'),
+      new Element('div', { id: 'rainbow' })
     );
     
     this.inputFields = new Hash();
