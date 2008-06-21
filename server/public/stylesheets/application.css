@@ -53,7 +53,7 @@ div#selections div.fx1 {
 }
 
 div#selections .fx1 div.title {
-  margin: 4px 4px;
+  margin: 0 0 0 0;
   padding: 1px 0 0 0;
   height: 24px;
 
@@ -163,6 +163,23 @@ td.left {
 td.right {
   text-align: left;
   padding: 0 0 0 1.5em !important;
+}
+/* --------------------------------------------- */
+
+/* ----- create project dialog ----------------- */
+#create_project_dialog {
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-size: 16px;
+}
+#create_project_dialog h1 {
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+#create_project_dialog .project_label {
+  font-size: 10px;
+  font-weight: none;
+  font-style: italic;
 }
 /* --------------------------------------------- */
 

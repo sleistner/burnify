@@ -1,0 +1,14 @@
+<div id="create_project_dialog">
+
+  <h1>Create Project</h1>
+
+  <% form_for Project.new do |f| %>
+
+    <div class="project_label">Name</div>
+    <%= f.text_field 'name' %>
+
+    <%= f.submit 'Create' %>
+
+  <% end %>
+
+</div>

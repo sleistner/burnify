@@ -58,7 +58,11 @@ FxResource = new Class({ Extends: Resource,
 
   createContainerElement: function() {
     var container = new Element('div', { 'class': this.ulClass });
-    return container.adopt(new Element('div', { 'class': this.titleClass }).appendText(this.title));
+    container.adopt(new Element('div', { 'class': this.itemContainerClass }).adopt(
+      new Element('div', { 'class': this.titleClass }).appendText(this.title),
+      this.createEditButton(this.onCreate.bind(this, this.root))
+    ));
+    return container;
   },
 
   createItemElement: function(it) {
@@ -73,10 +77,15 @@ FxResource = new Class({ Extends: Resource,
     initfxs.start('color', '#fff', '#333');
     this.fadeDuration += this.initFadeStep;
 
-    var edit = new Element('div', { 'class': this.editClass });
-    edit.addEvent('click', this.onEdit.bind(this, it.id));
+    var editButton = this.createEditButton(this.onEdit.bind(this, it.id));
 
-    return new Element('div', { 'class': this.itemContainerClass }).adopt(el, edit);
+    return new Element('div', { 'class': this.itemContainerClass }).adopt(el, editButton);
+  },
+
+  createEditButton: function(eventHandler) {
+    var btn = new Element('div', { 'class': this.editClass });
+    btn.addEvent('click', eventHandler);
+    return btn;
   },
 
   onSelectItemElement: function(memo) {
@@ -88,9 +97,12 @@ FxResource = new Class({ Extends: Resource,
     this.onSelect(memo.id);
   },
 
+  onCreate: function(resource) {
+    document.fireEvent(resource + ':create', resource);
+  },
+
   onEdit: function(item_id) {
     document.fireEvent(this.root + ':edit', item_id);
-    console.info('edit', item_id);
   }
 });
 
@@ -143,13 +155,7 @@ Stories = new Class({ Extends: FxResource,
   },
 
   onStoryEdit: function(story_id) {
-    new Request.JSON({ url: '/stories/' + story_id + '/working_days',
-      method: 'get',
-      onComplete: function(working_days) {
-        var dialog = new HistoryDialog(story_id, working_days);
-        dialog.show();
-      }
-    }).send();
+    createAndShowHistoryDialog(story_id);
   }
 });
 
@@ -232,9 +238,33 @@ HistoryDialog = new Class({
 
 });
 
+function createAndShowHistoryDialog(story_id) {
+  new Request.JSON({ url: '/stories/' + story_id + '/working_days',
+    method: 'get',
+    onComplete: function(working_days) {
+      var dialog = new HistoryDialog(story_id, working_days);
+      dialog.show();
+    }
+  }).send();
+};
+
 
 window.addEvent('domready', function() {
+
   projects   = new Projects();
   iterations = new Iterations();
   stories    = new Stories();
+
+  document.addEvent('project:create', function(resource) {
+    jQuery.facebox({ ajax: '/projects/new' })
+  });
+
+  document.addEvent('iteration:create', function(resource) {
+    console.info('CREATE '+resource);
+  });
+
+  document.addEvent('story:create', function(resource) {
+    console.info('CREATE '+resource);
+  });
+
 });
