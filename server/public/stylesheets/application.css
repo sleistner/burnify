@@ -39,27 +39,68 @@ div#selections div select {
 
 
 /* --------------------------------------------- */
-ul.fx1 {
-  list-style-image: none;
-  list-style-position: outside;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+div#selections .fx1 div {
+  margin: 0 0;
+  padding: 0 0;
+  border: 0;
+  float: clear;
+}
+
+div#selections div.fx1 {
+  margin: 0 0;
+  padding: 0 0;
   text-align: center;
 }
-.fx1 li {
-  margin: 2px 0 2px 0;
-  padding: 2px 0 4px 0;
+
+div#selections .fx1 div.title {
+  margin: 4px 4px;
+  padding: 1px 0 0 0;
+  height: 24px;
+
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-weight: bold;
+  background: #333;
+  color: #fff;
+}
+
+div#selections .fx1 div.it_c {
+  margin: 4px 4px;
+  padding: 0 0 0 0;
+  width: 253px;
+}
+div#selections .fx1 div.it_c:hover {
+  margin: 0 0 0 0;
+  padding: 2px 2px;
+  border: 2px dashed #999;
+  -moz-border-radius-bottomleft:4px;
+  -moz-border-radius-bottomright:4px;
+  -moz-border-radius-topleft:4px;
+  -moz-border-radius-topright:4px;
+}
+
+div#selections .fx1 div.item {
+  margin: 0 0 0 0;
+  padding: 1px 0 0 0;
+  height: 24px;
   font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
   background: #fff;
   color: #fff;
 }
-.fx1 li.title {
-  font-weight: bold;
-  background: #333;
-  color: #fff;
-  margin-bottom: 6px;
+
+div#selections .fx1 div.edit {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  width: 31px;
+  height: 25px;
+
+  display: none;
+  float: right;
+  background: transparent url(/images/dropdown.png) no-repeat;
 }
+div#selections .fx1 div.it_c:hover .edit {
+  display: block;
+}
+
 
 .item_none {
   background: #fff;

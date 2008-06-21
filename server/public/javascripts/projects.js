@@ -41,11 +41,14 @@ Resource = new Class({
 
 FxResource = new Class({ Extends: Resource,
 
-  ulClass:        'fx1',
-  selectedClass:  'selected',
-  titleClass:     'title',
-  title:          'FxResource',
-  initFadeStep:   300,
+  ulClass:            'fx1',
+  liClass:            'item',
+  itemContainerClass: 'it_c',
+  editClass:          'edit',
+  selectedClass:      'selected',
+  titleClass:         'title',
+  title:              'FxResource',
+  initFadeStep:       300,
 
   render: function(items) {
     this.selectedElement = undefined;
@@ -54,12 +57,12 @@ FxResource = new Class({ Extends: Resource,
   },
 
   createContainerElement: function() {
-    var container = new Element('ul', { 'class': this.ulClass });
-    return container.adopt(new Element('li', { 'class': this.titleClass }).appendText(this.title));
+    var container = new Element('div', { 'class': this.ulClass });
+    return container.adopt(new Element('div', { 'class': this.titleClass }).appendText(this.title));
   },
 
   createItemElement: function(it) {
-    var el      = new Element('li').appendText(it.name);
+    var el      = new Element('div', { 'class': this.liClass }).appendText(it.name);
     var overfxs = new Fx.Morph(el, { duration: 300, link: 'cancel' });
     var initfxs = new Fx.Tween(el, { duration: this.fadeDuration, link: 'cancel' });
 
@@ -70,7 +73,10 @@ FxResource = new Class({ Extends: Resource,
     initfxs.start('color', '#fff', '#333');
     this.fadeDuration += this.initFadeStep;
 
-    return el;
+    var edit = new Element('div', { 'class': this.editClass });
+    edit.addEvent('click', this.onEdit.bind(this, it.id));
+
+    return new Element('div', { 'class': this.itemContainerClass }).adopt(el, edit);
   },
 
   onSelectItemElement: function(memo) {
@@ -80,6 +86,11 @@ FxResource = new Class({ Extends: Resource,
     memo.el.addClass(this.selectedClass);
     this.selectedElement = memo.el;
     this.onSelect(memo.id);
+  },
+
+  onEdit: function(item_id) {
+    document.fireEvent(this.root + ':edit', item_id);
+    console.info('edit', item_id);
   }
 });
 
@@ -119,7 +130,7 @@ Stories = new Class({ Extends: FxResource,
     this.configure({ type: 'stories', root: 'story' });
     document.addEvent('project:changed',   this.onProjectChanged.bind(this));
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
-    document.addEvent('story:changed', this.onStoryChanged.bind(this));
+    document.addEvent('story:edit',        this.onStoryEdit.bind(this));
     this.render([]);
   },
 
@@ -131,7 +142,7 @@ Stories = new Class({ Extends: FxResource,
     this.load('/iterations/' + iteration_id + '/' + this.type);
   },
 
-  onStoryChanged: function(story_id) {
+  onStoryEdit: function(story_id) {
     new Request.JSON({ url: '/stories/' + story_id + '/working_days',
       method: 'get',
       onComplete: function(working_days) {
