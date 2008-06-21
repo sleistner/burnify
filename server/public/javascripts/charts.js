@@ -69,7 +69,7 @@ Chart = new Class({
     this.context.lineWidth = .06;
     
     for(var i = 0; i < this.max_x; i++) {
-      var x = this.gap + (i * this.step_x), label = this.data.days[i].day.toString();
+      var x = this.gap + (i * this.step_x), label = new Date(this.data.days[i].day).strftime('%d.%m');
       this.context.beginPath();
       this.context.moveTo(x, 0);
       this.context.lineTo(x, this.axis_height + (this.gap / 2));
@@ -93,14 +93,14 @@ Chart = new Class({
     this.context.strokeStyle = data.color;
     this.context.beginPath();
     this.context.lineWidth = .5;
-    this.context.moveTo(this.positionX(data.days[0].day), this.positionY(data.estimated_hours));
+    this.context.moveTo(this.positionX(this.firstDayWithHistory(data.days).day), this.positionY(data.estimated_hours));
     this.context.lineTo(this.positionX(data.days.getLast().day), this.positionY(0));
     this.context.stroke();
     this.context.save();
   },
   
   drawDevelopingLine: function(data) {
-    if(prev = data.days[0]) {
+    if(prev = this.firstDayWithHistory(data.days)) {
       this.context.lineWidth = 2;
       this.context.strokeStyle = data.color;
 
@@ -153,6 +153,12 @@ Chart = new Class({
     this.step_y = 10;
     this.steps_y = this.max_y / this.step_y;
     this.wide_y = (this.axis_height / this.steps_y);
+  },
+  
+  firstDayWithHistory: function(days) {
+    return days.detect(function(day) {
+      return day.hours_left != null;
+    }) || days[0];
   },
   
   filterDays: function(days) {
