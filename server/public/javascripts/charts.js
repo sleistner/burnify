@@ -69,7 +69,8 @@ Chart = new Class({
     this.context.lineWidth = .06;
     
     for(var i = 0; i < this.max_x; i++) {
-      var x = this.gap + (i * this.step_x), label = new Date(this.data.days[i].day).strftime('%d.%m');
+      var x = this.gap + (i * this.step_x);
+      var label = new Date(this.data.days[i].day.replace(/-/g, '/')).strftime('%d.%m');
       this.context.beginPath();
       this.context.moveTo(x, 0);
       this.context.lineTo(x, this.axis_height + (this.gap / 2));
@@ -78,7 +79,7 @@ Chart = new Class({
       this.context.save();
     }
 
-    for(var i = this.steps_y; i >= 0; i--) {
+    for (var i = this.steps_y; i >= 0; i--) {
       var y = i * this.wide_y, label = (((i - this.steps_y) * - 1) * this.step_y).toString();
       this.context.beginPath();
       this.context.moveTo(this.gap / 2, y);
@@ -93,14 +94,19 @@ Chart = new Class({
     this.context.strokeStyle = data.color;
     this.context.beginPath();
     this.context.lineWidth = .5;
-    this.context.moveTo(this.positionX(this.firstDayWithHistory(data.days).day), this.positionY(data.estimated_hours));
+    var first_day_with_history = this.firstDayWithHistory(data.days).day;
+    if (first_day_with_history != this.iteration_start_at) {
+      this.context.moveTo(this.positionX(this.iteration_start_at), this.positionY(data.estimated_hours));
+      this.context.lineTo(this.positionX(first_day_with_history), this.positionY(data.estimated_hours));
+    }
+    this.context.moveTo(this.positionX(first_day_with_history), this.positionY(data.estimated_hours));
     this.context.lineTo(this.positionX(data.days.getLast().day), this.positionY(0));
     this.context.stroke();
     this.context.save();
   },
   
   drawDevelopingLine: function(data) {
-    if(prev = this.firstDayWithHistory(data.days)) {
+    if (prev = this.firstDayWithHistory(data.days)) {
       this.context.lineWidth = 2;
       this.context.strokeStyle = data.color;
 
@@ -144,6 +150,7 @@ Chart = new Class({
   
   updateAttributes: function(data) {
     if(this.data && this.data.id != data.id) { this.selected_stories.empty() }
+    this.iteration_start_at = data.start_at;
     this.data = data;
     this.max_x = this.data.days.length;
     this.step_x = this.axis_width / this.max_x;
