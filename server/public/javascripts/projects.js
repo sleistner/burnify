@@ -66,7 +66,7 @@ FxResource = new Class({ Extends: Resource,
   },
 
   createItemElement: function(it) {
-    var el      = new Element('div', { 'class': this.liClass }).appendText(it.name);
+    var el      = new Element('div', { 'class': this.liClass, style: 'background: '+it.color }).appendText(it.name);
     var overfxs = new Fx.Morph(el, { duration: 300, link: 'cancel' });
     var initfxs = new Fx.Tween(el, { duration: this.fadeDuration, link: 'cancel' });
 
@@ -167,7 +167,6 @@ Stories = new Class({ Extends: FxResource,
 
 HistoryDialog = new Class({
 
-  weekDays:     ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
   scrollPaneId: 'working_days',
 
   initialize: function(story_id, working_days) {
@@ -232,12 +231,11 @@ HistoryDialog = new Class({
   },
 
   getFormattedDay: function(day) {
-    var day = new Date(day);
-    return this.weekDays[day.getDay()] + ", " + day.getDate() + '.' + day.getMonth();
+    return day.toDate().strftime('%a, %d.%m');
   },
 
   getDayId: function(day) {
-    var day = new Date(day);
+    var day = day.toDate();
     return 'day_' + day.getDate() + day.getMonth();
   }
 

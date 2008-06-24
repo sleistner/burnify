@@ -70,7 +70,7 @@ Chart = new Class({
     
     for(var i = 0; i < this.max_x; i++) {
       var x = this.gap + (i * this.step_x);
-      var label = new Date(this.data.days[i].day.replace(/-/g, '/')).strftime('%d.%m');
+      var label = this.data.days[i].day.toDate().strftime('%d.%m');
       this.context.beginPath();
       this.context.moveTo(x, 0);
       this.context.lineTo(x, this.axis_height + (this.gap / 2));

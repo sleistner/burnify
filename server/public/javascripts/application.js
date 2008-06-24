@@ -19,6 +19,9 @@ Array.implement({
 });
 
 
+String.prototype.toDate = function() { return new Date(this.replace(/-/g, '/')) }
+
+
 Request.JSON.implement({
 
   success: function(text){

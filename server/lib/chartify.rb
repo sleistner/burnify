@@ -9,7 +9,7 @@ module Chartify
       hash[:deadline] = deadline
       hash[:color] = color
       hash[:id] = id
-      working_days.each { |day| (hash[:days] ||= []) << { :day => day.strftime('%Y/%m/%d'), :hours_left => hours_left_on(day) } }
+      working_days.each { |day| (hash[:days] ||= []) << { :day => day.strftime('%Y-%m-%d'), :hours_left => hours_left_on(day) } }
     end
   end
 
