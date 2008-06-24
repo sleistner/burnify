@@ -114,6 +114,11 @@ Projects = new Class({ Extends: FxResource,
   initialize: function() {
     this.configure({ type: 'projects', root: 'project' });
     this.load();
+    document.addEvent('projects:update', this.onProjectsUpdate.bind(this));
+  },
+
+  onProjectsUpdate: function() {
+    this.load();
   }
 });
 
@@ -180,7 +185,7 @@ HistoryDialog = new Class({
   },
 
   setupScrollFx: function() {
-    this.srollFx = new Fx.Scroll(this.scrollPaneId);
+    this.srollFx = new Fx.Scroll(this.scrollPaneId, { transition: 'sine:out', link: 'cancel' });
     this.srollFx.set(0, 0);
 
     var scrollPane = this.getScrollPane();
@@ -249,6 +254,26 @@ function createAndShowHistoryDialog(story_id) {
 };
 
 
+
+function SaveProject(form) {
+  new Request.JSON({
+    url:        form.action,
+    method:     form.method,
+    onSuccess:  function(json, text, location) {
+      jQuery(document).trigger('close.facebox');
+      document.fireEvent('projects:update');
+    },
+    onFailure:  function(xhr, json) {
+      console.warn(json);
+      $H(json).each(function(pair){
+        console.log(pair);// TODO
+        $('project_'+pair.key+'_error').innerHTML = pair.value;
+      });
+    },
+  }).send(form.toQueryString());
+}
+
+
 window.addEvent('domready', function() {
 
   projects   = new Projects();
@@ -267,4 +292,5 @@ window.addEvent('domready', function() {
     console.info('CREATE '+resource);
   });
 
+  document.addEvent('project:save', SaveProject);
 });
