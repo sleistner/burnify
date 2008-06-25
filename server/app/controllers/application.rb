@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordInvalid,  :with => :render_invalid_record
   rescue_from ActiveRecord::RecordNotFound, :with => :render_record_not_found
-
+  before_filter :authenticate
+  
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   # protect_from_forgery # :secret => 'ada3775ac9022d57789fc84b249bb686'
@@ -17,7 +18,13 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
 
   private
-
+  
+  def authenticate
+    authenticate_or_request_with_http_basic do |user, password|
+      user == 'wunderloop' && password == 'oxymoron!'
+    end
+  end
+  
   def render_invalid_record exception
     record = exception.record
     respond_to do |format|
