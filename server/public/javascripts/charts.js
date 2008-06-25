@@ -93,6 +93,8 @@ Chart = new Class({
     this.context.strokeStyle = data.color;
     this.context.beginPath();
     this.context.lineWidth = .5;
+    var first_day_with_history = this.firstDayWithHistory(data.days).day;
+    console.log(first_day_with_history, data.start);
     this.context.moveTo(this.positionX(this.firstDayWithHistory(data.days).day), this.positionY(data.estimated_hours));
     this.context.lineTo(this.positionX(data.days.getLast().day), this.positionY(0));
     this.context.stroke();
@@ -144,6 +146,7 @@ Chart = new Class({
   
   updateAttributes: function(data) {
     if(this.data && this.data.id != data.id) { this.selected_stories.empty() }
+    this.iteration_start_at = data.start_at;
     this.data = data;
     this.max_x = this.data.days.length;
     this.step_x = this.axis_width / this.max_x;
