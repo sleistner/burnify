@@ -37,7 +37,7 @@ module ActsAsResourceController
       self.instance = model.create! params[model_name]
       headers['Location'] = send "#{model_name}_url", instance
       send(after_create) unless after_create.nil?
-      head :ok
+      head :created
     end
 
     def index
