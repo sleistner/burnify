@@ -1,0 +1,15 @@
+<div id="create_iteration_dialog" class="dialog">
+
+  <h1>Create Iteration</h1>
+
+  <% form_for Iteration.new do |f| %>
+
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <p>
+      <%= f.submit 'Create', :onclick => 'document.fireEvent("iteration:save", this.form);return false' %>
+    </p>
+
+  <% end %>
+
+</div>

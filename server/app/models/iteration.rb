@@ -1,32 +1,19 @@
 # == Schema Information
-# Schema version: 20080616190553
+# Schema version: 20080617193638
 #
 # Table name: iterations
 #
 #  id          :integer(11)     not null, primary key
 #  name        :string(255)     
 #  description :text            
-#  start       :date            
+#  start_at    :date            
 #  deadline    :date            
 #  created_at  :datetime        
 #  updated_at  :datetime        
 #  project_id  :integer(11)     
+#  color       :string(255)     default("#cccccc")
 #
 
-# == Schema Information
-# Schema version: 20080611171750
-#
-# Table name: iterations
-#
-#  id          :integer(11)     not null, primary key
-#  name        :string(255)     
-#  description :text            
-#  start       :date            
-#  deadline    :date            
-#  created_at  :datetime        
-#  updated_at  :datetime        
-#  project_id  :integer(11)     
-#
 class Iteration < ActiveRecord::Base
   include Chartify
 

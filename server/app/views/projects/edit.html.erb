@@ -1,0 +1,17 @@
+<div id="edit_project_dialog" class="dialog">
+
+  <h1>Edit Project</h1>
+
+  <% form_for @project do |f| %>
+
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <p>
+      <%= f.submit 'Save', :onclick => 'document.fireEvent("project:save", this.form);return false' %>
+      <span class="label">or</span>
+      <%= f.submit 'Delete', :onclick => 'try{document.fireEvent("project:destroy", this.form.action)}catch(ex){console.error(ex)};return false' %>
+    </p>
+
+  <% end %>
+
+</div>

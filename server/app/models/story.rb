@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080616190553
+# Schema version: 20080617193638
 #
 # Table name: stories
 #
@@ -10,8 +10,9 @@
 #  estimated_hours :integer(11)     
 #  created_at      :datetime        
 #  updated_at      :datetime        
-#  start           :datetime        
+#  start_at        :datetime        
 #  deadline        :datetime        
+#  color           :string(255)     default("#cccccc")
 #
 
 class Story < ActiveRecord::Base

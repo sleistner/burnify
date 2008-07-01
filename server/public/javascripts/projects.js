@@ -254,22 +254,72 @@ function createAndShowHistoryDialog(story_id) {
 
 
 
-function SaveProject(form) {
+
+function SaveResource(form, resource_type) {
+  // clear errors
+  $$('.with_errors').each(function(el){ el.removeClass('with_errors') });
+  $$('.show_error').each(function(el){ el.removeClass('show_error') });
+
+  // send request
   new Request.JSON({
     url:        form.action,
     method:     form.method,
     onSuccess:  function(json, text, location) {
       jQuery(document).trigger('close.facebox');
-      document.fireEvent('projects:update');
+      document.fireEvent(resource_type+'s:update');
     },
     onFailure:  function(xhr, json) {
-      console.warn(json);
-      $H(json).each(function(pair){
-        console.log(pair);// TODO
-        $('project_'+pair.key+'_error').innerHTML = pair.value;
+      $H(json).each(function(msg, field){
+        var el = $(resource_type+'_'+field+'_error');
+        el.innerHTML = msg;
+        el.addClass('show_error');
+        $(resource_type+'_'+field).addClass('with_errors');
       });
     },
   }).send(form.toQueryString());
+}
+
+function SaveProject(form) {
+  SaveResource(form, 'project');
+  // new Request.JSON({
+  //   url:        form.action,
+  //   method:     form.method,
+  //   onSuccess:  function(json, text, location) {
+  //     jQuery(document).trigger('close.facebox');
+  //     document.fireEvent('projects:update');
+  //   },
+  //   onFailure:  function(xhr, json) {
+  //     console.warn(json);
+  //     $H(json).each(function(pair){
+  //       console.log(pair);// TODO
+  //       $('project_'+pair.key+'_error').innerHTML = pair.value;
+  //     });
+  //   },
+  // }).send(form.toQueryString());
+}
+
+function SaveIteration(form) {
+  SaveResource(form, 'iteration');
+}
+
+function DestroyProject(resource_url) {
+  if (confirm('Are you sure ?')) {
+    new Request.JSON({
+      url:        resource_url+'.json',
+      method:     'DELETE',
+      onSuccess:  function(json, text, location) {
+        jQuery(document).trigger('close.facebox');
+        document.fireEvent('projects:update');
+      },
+      onFailure:  function(xhr, json) {
+        console.warn(json);
+        $H(json).each(function(pair){
+          console.log(pair);// TODO
+          $('project_'+pair.key+'_error').innerHTML = pair.value;
+        });
+      },
+    }).send();
+  }
 }
 
 
@@ -283,13 +333,22 @@ window.addEvent('domready', function() {
     jQuery.facebox({ ajax: '/projects/new' })
   });
 
+  document.addEvent('project:edit', function(resource) {
+    jQuery.facebox({ ajax: '/projects/edit/' + resource });
+  });
+
+  document.addEvent('project:destroy', function(resource_url) {
+    DestroyProject(resource_url);
+  });
+
   document.addEvent('iteration:create', function(resource) {
-    console.info('CREATE '+resource);
+    jQuery.facebox({ ajax: '/iterations/new' })
   });
 
   document.addEvent('story:create', function(resource) {
     console.info('CREATE '+resource);
   });
 
-  document.addEvent('project:save', SaveProject);
+  document.addEvent('project:save',   SaveProject);
+  document.addEvent('iteration:save', SaveIteration);
 });
