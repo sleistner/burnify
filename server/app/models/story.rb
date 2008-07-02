@@ -17,7 +17,8 @@
 
 class Story < ActiveRecord::Base
   include Chartify
-  
+  include StartAtAndDeadline
+
   belongs_to :iteration
   has_many :histories, :class_name => 'StoryHistory'
 

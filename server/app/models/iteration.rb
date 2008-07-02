@@ -16,6 +16,7 @@
 
 class Iteration < ActiveRecord::Base
   include Chartify
+  include StartAtAndDeadline
 
   belongs_to :project
   has_many :stories
@@ -40,9 +41,9 @@ class Iteration < ActiveRecord::Base
   end
   
   alias_method_chain :chart_data, :extension
-  
+
   private
-  
+
     def estimated_hours
       stories.map(&:estimated_hours).sum
     end
