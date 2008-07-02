@@ -2,12 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Breakpoints</key>
+	<dict>
+		<key>main.js:76</key>
+		<string>-load</string>
+		<key>main.js:82</key>
+		<string>-load</string>
+		<key>main.js:83</key>
+		<string>-</string>
+	</dict>
 	<key>ContentSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
 		<integer>8</integer>
 		<key>SplitViewConfig</key>
-		<integer>1</integer>
+		<integer>3</integer>
 		<key>_collapsingFrameDimension</key>
 		<real>0.0</real>
 		<key>_indexOfCollapsedView</key>
@@ -16,12 +25,37 @@
 		<real>0.0</real>
 		<key>sizes</key>
 		<array>
-			<string>{{0, 0}, {759, 450}}</string>
-			<string>{{0, 460}, {759, 236}}</string>
+			<string>{{0, 0}, {1014, 292}}</string>
+			<string>{{0, 302}, {1014, 415}}</string>
 		</array>
 	</dict>
 	<key>ContentViewType</key>
 	<integer>0</integer>
+	<key>Dashboard Widget Prefs</key>
+	<dict>
+		<key>id</key>
+		<string>1bd8923fd336ac41</string>
+		<key>in-layer</key>
+		<true/>
+		<key>path</key>
+		<string>/private/var/folders/dR/dR3ef02kHRWEcdWKQwDjCU+++TI/-Tmp-/Dashcode/.burndown.dcprojjbITK1/burndown.dcproj/project.wdgt/</string>
+		<key>percent-offset-x</key>
+		<integer>0</integer>
+		<key>percent-offset-y</key>
+		<integer>0</integer>
+		<key>percent-type</key>
+		<integer>1</integer>
+		<key>percent-x</key>
+		<real>0.033333335071802139</real>
+		<key>percent-y</key>
+		<real>0.21777777373790741</real>
+		<key>pos-x</key>
+		<integer>48</integer>
+		<key>pos-y</key>
+		<integer>196</integer>
+		<key>rosetta</key>
+		<false/>
+	</dict>
 	<key>Design time language</key>
 	<string>de.lproj</string>
 	<key>MainSplitViewGeometry</key>
@@ -34,16 +68,16 @@
 		<real>0.0</real>
 		<key>sizes</key>
 		<array>
-			<string>{{0, 0}, {244, 717}}</string>
-			<string>{{245, 0}, {760, 717}}</string>
+			<string>{{0, 0}, {244, 738}}</string>
+			<string>{{245, 0}, {1015, 738}}</string>
 		</array>
 	</dict>
 	<key>MainWindowFrame</key>
-	<string>389 137 1004 738 0 0 1440 878 </string>
+	<string>120 119 1259 759 0 0 1440 878 </string>
 	<key>NavigatorSplitViewGeometry</key>
 	<dict>
 		<key>ContentSplitViewConfig</key>
-		<integer>9</integer>
+		<integer>5</integer>
 		<key>SplitViewConfig</key>
 		<integer>3</integer>
 		<key>_collapsingFrameDimension</key>
@@ -54,8 +88,8 @@
 		<real>0.0</real>
 		<key>sizes</key>
 		<array>
-			<string>{{0, 0}, {246, 348}}</string>
-			<string>{{0, 358}, {246, 338}}</string>
+			<string>{{0, 0}, {246, 358}}</string>
+			<string>{{0, 368}, {246, 349}}</string>
 		</array>
 	</dict>
 	<key>Objects view expanded items</key>
@@ -73,25 +107,18 @@
 		</array>
 	</array>
 	<key>Objects view last selections</key>
-	<array>
-		<array>
-			<integer>0</integer>
-			<integer>0</integer>
-			<integer>0</integer>
-		</array>
-	</array>
+	<array/>
 	<key>Opened Steps</key>
 	<array>
 		<integer>0</integer>
+		<integer>2</integer>
 	</array>
 	<key>The swapped in swappable DOM elements</key>
 	<dict>
-		<key></key>
-		<string>block</string>
 		<key>back</key>
-		<string>none</string>
-		<key>front</key>
 		<string>block</string>
+		<key>front</key>
+		<string>none</string>
 	</dict>
 </dict>
 </plist>

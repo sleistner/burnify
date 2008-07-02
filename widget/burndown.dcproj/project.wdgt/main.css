@@ -5,17 +5,17 @@ You may edit this file to customize your Dashboard widget.
 
 body {
     margin: 0px;
+    font-style: italic;
+    font-size: 12pt;
 }
 
 #frontImg {
-    position: absolute;
     display: block;
-    top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    width: auto;
+    -khtml-margin-top-collapse: separate;
+    min-height: 332px;
     height: auto;
+    position: relative;
+    width: auto;
 }
 
 #info {
@@ -34,10 +34,10 @@ body {
     position: absolute;
     display: block;
     top: 0px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
+    left: 2px;
+    right: -2px;
     width: auto;
+    bottom: 0px;
     height: auto;
 }
 
@@ -49,24 +49,77 @@ body {
     margin-top: auto;
 }
 
-#helloText {
+#chart {
     position: absolute;
-    top: 85px;
-    left: 94px;
-    right: 95px;
-    width: 91px;
-    color: black;
-    font-family: HelveticaNeue-Bold;
-    font-size: 11pt;
-    margin-left: auto;
-    margin-right: auto;
+    width: 409px;
+    left: 29px;
+    height: 265px;
+    top: 34px;
 }
 
-#backDevelopedWith {
+#projects {
     position: absolute;
-    top: 67px;
-    left: 43px;
-    right: 43px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 197px;
+    left: 145px;
+    top: 76px;
+}
+
+#popup {
+    position: absolute;
+    width: 70px;
+    left: 53px;
+    top: 98px;
+}
+
+#iterations {
+    position: absolute;
+    width: 197px;
+    left: 145px;
+    top: 108px;
+}
+
+#textfield {
+    position: absolute;
+    color: black;
+    font-family: HelveticaNeue;
+    font-size: 10pt;
+    width: 191px;
+    left: 145px;
+    top: 40px;
+}
+
+#text {
+    position: absolute;
+    font-size: 10pt;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family: 'Helvetica Neue';
+    left: 105px;
+    top: 45px;
+}
+
+#text1 {
+    position: absolute;
+    font-size: 10pt;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family: 'Helvetica Neue';
+    left: 80px;
+    top: 79px;
+}
+
+#text2 {
+    position: absolute;
+    font-size: 10pt;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-family: 'Helvetica Neue';
+    left: 72px;
+    top: 111px;
 }

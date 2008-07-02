@@ -18,33 +18,37 @@ Array.implement({
   }
 });
 
-String.prototype.abbreviate = function(offset, maxWidth) {
-  if(maxWidth < 4) {
-    throw new Error('Minimum abbreviation width is 4');
+String.implement({
+  
+  abbreviate: function(offset, maxWidth) {
+    if (maxWidth < 4) {
+      throw new Error('Minimum abbreviation width is 4');
+    }
+    if (this.length <= maxWidth) {
+      return this;
+    }
+    if (offset > this.length) {
+      offset = this.length;
+    }
+    if ((this.length - offset) < (maxWidth - 3)) {
+      offset = this.length - (maxWidth - 3);
+    }
+    if (offset <= 4) {
+      return this.substring(0, maxWidth - 3) + '...';
+    }
+    if (maxWidth < 7) {
+      throw new Error('Minimum abbreviation width with offset is 7');
+    }
+    if ((offset + (maxWidth - 3)) < this.length) {
+      return '...' + this.abbreviate(this.substring(offset), 0, maxWidth - 3);
+    }
+    return '...' + this.substring(this.length - (maxWidth - 3));
+  },
+  
+  toDate: function() { 
+    return new Date(this.replace(/-/g, '/'));
   }
-  if(this.length <= maxWidth) {
-    return this;
-  }
-  if(offset > this.length) {
-    offset = this.length;
-  }
-  if((this.length - offset) < (maxWidth - 3)) {
-    offset = this.length - (maxWidth - 3);
-  }
-  if(offset <= 4) {
-    return this.substring(0, maxWidth - 3) + '...';
-  }
-  if(maxWidth < 7) {
-    throw new Error('Minimum abbreviation width with offset is 7');
-  }
-  if((offset + (maxWidth - 3)) < thie.length) {
-    return '...' + this.abbreviate(this.substring(offset), 0, maxWidth - 3);
-  }
-  return '...' + this.substring(this.length - (maxWidth - 3));
-}
-
-String.prototype.toDate = function() { return new Date(this.replace(/-/g, '/')) }
-
+});
 
 Request.JSON.implement({
 

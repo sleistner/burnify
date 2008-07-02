@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   private
   
   def authenticate
-    authenticate_or_request_with_http_basic do |user, password|
-      user == 'wunderloop' && password == 'oxymoron!'
-    end
+    # authenticate_or_request_with_http_basic do |user, password|
+    #   user == 'wunderloop' && password == 'oxymoron!'
+    # end
   end
   
   def render_invalid_record exception
