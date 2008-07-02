@@ -142,10 +142,11 @@ div.history_dialog, div.history_dialog td, div.history_dialog input {
   font-size: 16px;
 }
 div.history_dialog h1 {
+  font-family: "arial black", "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-weight: bold;
   margin: 0;
   padding: 0;
   font-size: 18px;
-  font-weight: bold;
 }
 div.history_dialog p {
   margin: 0.5em 0 1em 0;
@@ -172,7 +173,7 @@ td.right {
   font-size: 16px;
 }
 .dialog h1 {
-  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-family: "arial black", "lucida grande",tahoma,verdana,arial,sans-serif;
   font-size: 18px;
   font-weight: bold;
 }
@@ -200,4 +201,6 @@ td.right {
 }
 /* --------------------------------------------- */
 
-
+.jquery-ui-datepicker{
+  margin-right: 4px;
+}

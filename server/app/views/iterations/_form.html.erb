@@ -21,13 +21,13 @@
 
 <p>
   <label for="iteration_start_at">Start</label>
-  <%= f.date_select 'start_at' %>
+  <%= f.text_field 'start_at', :size => 10, :class => 'jquery-ui-datepicker' %>
 </p>
 <p id="iteration_start_at_error" class="error"></p>
 
 <p>
   <label for="iteration_deadline">Deadline</label>
-  <%= f.date_select 'deadline' %>
+  <%= f.text_field 'deadline', :size => 10, :class => 'jquery-ui-datepicker' %>
 </p>
 <p id="iteration_deadline_error" class="error"></p>
 

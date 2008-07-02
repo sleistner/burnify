@@ -342,7 +342,19 @@ window.addEvent('domready', function() {
   });
 
   document.addEvent('iteration:create', function(resource) {
-    jQuery.facebox({ ajax: '/iterations/new' })
+
+    // http://ui.jquery.com/functional_demos/#ui.datepicker
+    jQuery(document).bind('reveal.facebox', function() {
+      jQuery('.jquery-ui-datepicker').each(function(i){
+        jQuery(this).datepicker({
+          showOn:           "both",
+          buttonImage:      "/images/calendar.gif",
+          buttonImageOnly:  true
+        });
+      });
+    });
+
+    jQuery.facebox({ ajax: '/iterations/new' });
   });
 
   document.addEvent('story:create', function(resource) {
