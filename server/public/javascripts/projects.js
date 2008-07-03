@@ -34,7 +34,12 @@ Resource = new Class({
   },
 
   onSelect: function(id) {
+    this.selectedId = id;
     document.fireEvent(this.root + ':changed', id);
+  },
+
+  getSelectedId: function() {
+    return $defined(this.selectedId) ? this.selectedId : null;
   }
 });
 
@@ -255,14 +260,17 @@ function createAndShowHistoryDialog(story_id) {
 
 
 
-function SaveResource(form, resource_type) {
+function SaveResource(form, resource_type, url) {
+
+  var action = $defined(url) ? url : form.action;
+
   // clear errors
   $$('.with_errors').each(function(el){ el.removeClass('with_errors') });
   $$('.show_error').each(function(el){ el.removeClass('show_error') });
 
   // send request
   new Request.JSON({
-    url:        form.action,
+    url:        action,
     method:     form.method,
     onSuccess:  function(json, text, location) {
       jQuery(document).trigger('close.facebox');
@@ -271,9 +279,14 @@ function SaveResource(form, resource_type) {
     onFailure:  function(xhr, json) {
       $H(json).each(function(msg, field){
         var el = $(resource_type+'_'+field+'_error');
-        el.innerHTML = msg;
-        el.addClass('show_error');
-        $(resource_type+'_'+field).addClass('with_errors');
+        if (el != null) {
+          el.innerHTML = msg;
+          el.addClass('show_error');
+        }
+        el = $(resource_type+'_'+field);
+        if (el != null) {
+          el.addClass('with_errors');
+        }
       });
     },
   }).send(form.toQueryString());
@@ -299,7 +312,7 @@ function SaveProject(form) {
 }
 
 function SaveIteration(form) {
-  SaveResource(form, 'iteration');
+  SaveResource(form, 'iteration', '/projects/'+projects.getSelectedId()+'/iterations');
 }
 
 function DestroyProject(resource_url) {

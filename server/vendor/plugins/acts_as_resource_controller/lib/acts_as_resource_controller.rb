@@ -34,7 +34,10 @@ module ActsAsResourceController
   module ResourceMethods
 
     def create
-      self.instance = model.create! params[model_name]
+      m = model.new params[model_name]
+      m.send("#{belongs_to_id}=", params[belongs_to_id]) if belongs_to?
+      self.instance = m
+      m.save!
       headers['Location'] = send "#{model_name}_url", instance
       send(after_create) unless after_create.nil?
       head :created
