@@ -1,6 +1,3 @@
-//
-// !!! WORK-IN-PROGRESS !!!
-//
 $namespace('burnify.status');
 
 burnify.status.StatusBar = new function() {
