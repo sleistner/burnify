@@ -8,10 +8,12 @@ Resource = new Class({
   },
 
   load: function(url) {
+    document.fireEvent('status:show:loading');
     new Request.JSON({ url: url || '/' + this.type, method: 'get', autoCancel: true, onComplete: this.onLoadComplete.bind(this) }).send();
   },
 
   onLoadComplete: function(items) {
+    document.fireEvent('status:hide');
     this.render(items.map(function(it) { return it[this.root] }, this));
   },
 
@@ -50,6 +52,7 @@ FxResource = new Class({ Extends: Resource,
   liClass:            'item',
   itemContainerClass: 'it_c',
   editClass:          'edit',
+  createNewClass:     'create_new',
   selectedClass:      'selected',
   titleClass:         'title',
   title:              'FxResource',
@@ -63,7 +66,7 @@ FxResource = new Class({ Extends: Resource,
 
   createContainerElement: function() {
     var container = new Element('div', { 'class': this.ulClass });
-    container.adopt(new Element('div', { 'class': this.itemContainerClass }).adopt(
+    container.adopt(new Element('div', { 'class': this.itemContainerClass+' '+this.createNewClass }).adopt(
       new Element('div', { 'class': this.titleClass }).appendText(this.title),
       this.createEditButton(this.onCreate.bind(this, this.root))
     ));
