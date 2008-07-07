@@ -36,7 +36,6 @@ burnify.status.StatusBar = new function() {
   //   use the 'status:show:message' event instead!! ***
   this.showMessage = function(message, duration) {
     duration = $defined(duration) ? duration*1000 : 6000;
-    console.debug('showMessage', message, duration);
     if (message != null) {
       divIDs.each(function(id) {
         cancelClearEffects(id);

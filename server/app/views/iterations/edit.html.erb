@@ -1,0 +1,17 @@
+<div id="edit_iteration_dialog" class="dialog">
+
+  <h1>Edit Iteration</h1>
+
+  <% form_for @iteration do |f| %>
+
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <p>
+      <%= f.submit 'Save', :onclick => 'try{document.fireEvent("iteration:save", this.form)}catch(ex){console.error(ex)};return false' %>
+      <span class="label">or</span>
+      <%= f.submit 'Delete', :onclick => 'try{document.fireEvent("iteration:destroy", this.form.action)}catch(ex){console.error(ex)};return false' %>
+    </p>
+
+  <% end %>
+
+</div>

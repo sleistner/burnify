@@ -1,5 +1,14 @@
 
-var $break = { };
+function initializeJQueryUIDatePicker() {
+  // http://ui.jquery.com/functional_demos/#ui.datepicker
+  jQuery('.jquery-ui-datepicker').each(function(i){
+    jQuery(this).datepicker({
+      showOn:           "both",
+      buttonImage:      "/images/calendar.gif",
+      buttonImageOnly:  true
+    });
+  });
+}
 
 
 function $namespace() {
@@ -15,6 +24,8 @@ function $namespace() {
   return o;
 };
 
+
+var $break = { };
 
 Array.implement({
   
