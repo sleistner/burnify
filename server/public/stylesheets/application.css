@@ -66,7 +66,7 @@ div#selections .fx1 div.title {
 div#selections .fx1 div.it_c {
   margin: 4px 4px;
   padding: 0 0 0 0;
-  width: 253px;
+  width: 248px;
 }
 div#selections .fx1 div.it_c:hover {
   margin: 0 0 0 0;
@@ -90,12 +90,17 @@ div#selections .fx1 div.item {
 div#selections .fx1 div.edit {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
-  width: 31px;
+  width: 25px;
   height: 25px;
+
+  cursor: pointer;
 
   display: none;
   float: right;
-  background: transparent url(/images/dropdown.png) no-repeat;
+  background: transparent url(/images/edit.png) no-repeat;
+}
+div#selections .fx1 div.create_new div.edit {
+  background: transparent url(/images/new.png) no-repeat;
 }
 div#selections .fx1 div.it_c:hover .edit {
   display: block;

@@ -8,4 +8,8 @@ class IterationsController < ApplicationController
     render_formats Iteration.find(params[:id]).chart_data
   end
 
+  def edit
+    @iteration = Iteration.find(params[:id])
+  end
+
 end

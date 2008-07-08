@@ -1,0 +1,25 @@
+#statusbar_container {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#statusbar {
+  font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  display: inline;
+  padding: 4px 16px 4px 16px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  -moz-border-radius-bottomleft:4px;
+  -moz-border-radius-bottomright:4px;
+}
+
+#statusbar img {
+  border: 0;
+  margin: 2px 0 0 0.5em;
+  padding: 0;
+}

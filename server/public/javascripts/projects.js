@@ -8,10 +8,12 @@ Resource = new Class({
   },
 
   load: function(url) {
+    document.fireEvent('status:show:loading');
     new Request.JSON({ url: url || '/' + this.type, method: 'get', autoCancel: true, onComplete: this.onLoadComplete.bind(this) }).send();
   },
 
   onLoadComplete: function(items) {
+    document.fireEvent('status:hide');
     this.render(items.map(function(it) { return it[this.root] }, this));
   },
 
@@ -50,6 +52,7 @@ FxResource = new Class({ Extends: Resource,
   liClass:            'item',
   itemContainerClass: 'it_c',
   editClass:          'edit',
+  createNewClass:     'create_new',
   selectedClass:      'selected',
   titleClass:         'title',
   title:              'FxResource',
@@ -63,7 +66,7 @@ FxResource = new Class({ Extends: Resource,
 
   createContainerElement: function() {
     var container = new Element('div', { 'class': this.ulClass });
-    container.adopt(new Element('div', { 'class': this.itemContainerClass }).adopt(
+    container.adopt(new Element('div', { 'class': this.itemContainerClass+' '+this.createNewClass }).adopt(
       new Element('div', { 'class': this.titleClass }).appendText(this.title),
       this.createEditButton(this.onCreate.bind(this, this.root))
     ));
@@ -136,11 +139,17 @@ Iterations = new Class({ Extends: FxResource,
   initialize: function() {
     this.configure({ type: 'iterations', root: 'iteration' });
     document.addEvent('project:changed', this.onProjectChanged.bind(this));
+    document.addEvent('iterations:update', this.onIterationsUpdate.bind(this));
     this.render([]);
   },
 
   onProjectChanged: function(project_id) {
+    this.currentProjectId = project_id;
     this.load('/projects/' + project_id + '/' + this.type);
+  },
+
+  onIterationsUpdate: function() {
+    this.load('/projects/' + this.currentProjectId + '/' + this.type);
   }
 });
 
@@ -200,6 +209,8 @@ HistoryDialog = new Class({
       var field = $(id);
       this.inputFields.set(id, field.getPosition().y-offsetY+(field.getHeight()/2));
     }.bind(this));
+
+    $(this.scrollToDay != null ? this.scrollToDay : this.scrollToLastDay).focus();
   },
 
   createHtml: function() {
@@ -210,6 +221,7 @@ HistoryDialog = new Class({
     );
     
     this.inputFields = new Hash();
+    this.scrollToDay = null;
 
     var wd = new Element('div', { 'id': 'working_days' });
     var table = new Element('table', { 'class': 'working_days', width: '100%' }).adopt( this.working_days.days.map( function(wday) {
@@ -217,6 +229,16 @@ HistoryDialog = new Class({
       tr.adopt(new Element('td', { 'class': 'left' }).appendText(this.getFormattedDay(wday.day)));
 
       var day_id = this.getDayId(wday.day);
+      this.scrollToLastDay = day_id;
+      if (this.scrollToDay == null) {
+        if (wday.hours_left == null) {
+          this.scrollToDay = day_id;
+        }
+      } else {
+        if (wday.hours_left != null) {
+          this.scrollToDay = null;
+        }
+      }
       var input  = new Element('input', { value: wday.hours_left, size: 4, id: day_id });
       this.inputFields.set(day_id, 0);
 
@@ -294,45 +316,41 @@ function SaveResource(form, resource_type, url) {
 
 function SaveProject(form) {
   SaveResource(form, 'project');
-  // new Request.JSON({
-  //   url:        form.action,
-  //   method:     form.method,
-  //   onSuccess:  function(json, text, location) {
-  //     jQuery(document).trigger('close.facebox');
-  //     document.fireEvent('projects:update');
-  //   },
-  //   onFailure:  function(xhr, json) {
-  //     console.warn(json);
-  //     $H(json).each(function(pair){
-  //       console.log(pair);// TODO
-  //       $('project_'+pair.key+'_error').innerHTML = pair.value;
-  //     });
-  //   },
-  // }).send(form.toQueryString());
 }
 
 function SaveIteration(form) {
-  SaveResource(form, 'iteration', '/projects/'+projects.getSelectedId()+'/iterations');
+  SaveResource(form, 'iteration', '/projects/'+projects.getSelectedId()+form.getProperty('action'));
 }
 
-function DestroyProject(resource_url) {
+
+function DestroyResource(resource_url, resource_type) {
   if (confirm('Are you sure ?')) {
     new Request.JSON({
       url:        resource_url+'.json',
       method:     'DELETE',
       onSuccess:  function(json, text, location) {
         jQuery(document).trigger('close.facebox');
-        document.fireEvent('projects:update');
+        document.fireEvent(resource_type+'s:update');
       },
       onFailure:  function(xhr, json) {
         console.warn(json);
-        $H(json).each(function(pair){
-          console.log(pair);// TODO
-          $('project_'+pair.key+'_error').innerHTML = pair.value;
-        });
       },
     }).send();
   }
+}
+
+function DestroyProject(resource_url) {
+  DestroyResource(resource_url, 'project');
+}
+
+function DestroyIteration(resource_url) {
+  DestroyResource(resource_url, 'iteration');
+}
+
+
+function LoadAjaxDialog(url) {
+  jQuery(document).bind('reveal.facebox', function(){ initializeJQueryUIDatePicker(); });
+  jQuery.facebox({ ajax: url });
 }
 
 
@@ -342,38 +360,15 @@ window.addEvent('domready', function() {
   iterations = new Iterations();
   stories    = new Stories();
 
-  document.addEvent('project:create', function(resource) {
-    jQuery.facebox({ ajax: '/projects/new' })
-  });
+  document.addEvent('project:create',     function(resource)    { LoadAjaxDialog('/projects/new'); });
+  document.addEvent('project:edit',       function(resource)    { LoadAjaxDialog('/projects/edit/' + resource); });
+  document.addEvent('project:save',       SaveProject);
+  document.addEvent('project:destroy',    DestroyProject);
 
-  document.addEvent('project:edit', function(resource) {
-    jQuery.facebox({ ajax: '/projects/edit/' + resource });
-  });
+  document.addEvent('iteration:create',   function(resource)    { LoadAjaxDialog('/iterations/new'); });
+  document.addEvent('iteration:edit',     function(resource)    { LoadAjaxDialog('/iterations/edit/' + resource); });
+  document.addEvent('iteration:save',     SaveIteration);
+  document.addEvent('iteration:destroy',  DestroyIteration);
 
-  document.addEvent('project:destroy', function(resource_url) {
-    DestroyProject(resource_url);
-  });
-
-  document.addEvent('iteration:create', function(resource) {
-
-    // http://ui.jquery.com/functional_demos/#ui.datepicker
-    jQuery(document).bind('reveal.facebox', function() {
-      jQuery('.jquery-ui-datepicker').each(function(i){
-        jQuery(this).datepicker({
-          showOn:           "both",
-          buttonImage:      "/images/calendar.gif",
-          buttonImageOnly:  true
-        });
-      });
-    });
-
-    jQuery.facebox({ ajax: '/iterations/new' });
-  });
-
-  document.addEvent('story:create', function(resource) {
-    console.info('CREATE '+resource);
-  });
-
-  document.addEvent('project:save',   SaveProject);
-  document.addEvent('iteration:save', SaveIteration);
+  document.addEvent('story:create',       function(resource)    { console.info('CREATE '+resource); });
 });
