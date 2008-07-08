@@ -41,12 +41,12 @@ burnify.status.StatusBar = new function() {
         cancelClearEffects(id);
         $(id).innerHTML = message;
         $(id).setStyle('opacity', '1.0');
-        var effect = new Fx.Morph(id, {duration: 'long', transition: Fx.Transitions.Sine.easeOut});
+        var effect = new Fx.Morph(id, {duration: 'short', transition: Fx.Transitions.Sine.easeOut});
         effect.start({ 'background-color': ['#ffff00', '#f0f0f0'] });
       });
       ++messageId;
       if (duration > 0) {
-        setTimeout('burnify.status.StatusBar.clear('+messageId+')', 1500+duration);
+        setTimeout('burnify.status.StatusBar.clear('+messageId+')', 300+duration);
       }
     } else {
       divIDs.each(function(id){ $(id).innerHTML = '' });
@@ -58,7 +58,7 @@ burnify.status.StatusBar = new function() {
       divIDs.each(function(id) {
         if (clearEffects[id] == null) {
           clearEffects[id] = new Fx.Morph(id, {
-            duration: 'long',
+            duration: 'short',
             transition: Fx.Transitions.Sine.easeOut,
             complete: function(){ clearEffects[id] = null }
           });
