@@ -3,3 +3,5 @@ server/log/*
 server/db/schema.rb
 .DS_Store
 server/db/schema.rb
+server/public/javascripts/all.js
+server/public/stylesheets/all.css
