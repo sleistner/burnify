@@ -24,9 +24,10 @@ Chart = new Class({
     if($defined(url)) {
       this.url = url;
     }
+    this.resetSelectedStories();
     new Request.JSON({ url: this.url, method: 'get', onComplete: this.render.bind(this) }).send();
   },
-  
+
   render: function(data) {
     this.updateAttributes(data);
     this.context.strokeStyle = this.theme.color;
@@ -135,7 +136,7 @@ Chart = new Class({
   },
   
   onStorySelected: function(story_id) {
-    with(this.selected_stories) { (contains(story_id) && erase(story_id)) || push(story_id) }
+    with (this.selected_stories) { (contains(story_id) && erase(story_id)) || push(story_id) }
     this.reRender();
   },
   
@@ -148,8 +149,12 @@ Chart = new Class({
     return this.axis_height - value * (this.axis_height / this.max_y);
   },
   
+  resetSelectedStories: function() {
+    this.selected_stories.empty();
+  },
+
   updateAttributes: function(data) {
-    if(this.data && this.data.id != data.id) { this.selected_stories.empty() }
+    if (this.data && this.data.id != data.id) { this.resetSelectedStories() }
     this.iteration_start_at = data.start_at;
     this.data = data;
     this.max_x = this.data.days.length;
