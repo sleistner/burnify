@@ -4,8 +4,4 @@ class ProjectsController < ApplicationController
 
   layout false
 
-  def edit
-    @project = Project.find(params[:id])
-  end
-
 end

@@ -4,11 +4,11 @@
 <dict>
 	<key>Breakpoints</key>
 	<dict>
-		<key>main.js:76</key>
+		<key>main.js:79</key>
 		<string>-load</string>
-		<key>main.js:82</key>
+		<key>main.js:85</key>
 		<string>-load</string>
-		<key>main.js:83</key>
+		<key>main.js:86</key>
 		<string>-</string>
 	</dict>
 	<key>ContentSplitViewGeometry</key>
@@ -16,7 +16,7 @@
 		<key>ContentSplitViewConfig</key>
 		<integer>8</integer>
 		<key>SplitViewConfig</key>
-		<integer>3</integer>
+		<integer>2</integer>
 		<key>_collapsingFrameDimension</key>
 		<real>0.0</real>
 		<key>_indexOfCollapsedView</key>
@@ -34,7 +34,7 @@
 	<key>Dashboard Widget Prefs</key>
 	<dict>
 		<key>id</key>
-		<string>1bd8923fd336ac41</string>
+		<string>4c6f776ed936ac41</string>
 		<key>in-layer</key>
 		<true/>
 		<key>path</key>
@@ -46,13 +46,13 @@
 		<key>percent-type</key>
 		<integer>1</integer>
 		<key>percent-x</key>
-		<real>0.033333335071802139</real>
+		<real>0.33194443583488464</real>
 		<key>percent-y</key>
-		<real>0.21777777373790741</real>
+		<real>0.15999999642372131</real>
 		<key>pos-x</key>
-		<integer>48</integer>
+		<integer>478</integer>
 		<key>pos-y</key>
-		<integer>196</integer>
+		<integer>144</integer>
 		<key>rosetta</key>
 		<false/>
 	</dict>
