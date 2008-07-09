@@ -57,6 +57,7 @@ FxResource = new Class({ Extends: Resource,
   titleClass:         'title',
   title:              'FxResource',
   initFadeStep:       300,
+  multiSelect:        false,
 
   render: function(items) {
     this.selectedElement = undefined;
@@ -98,10 +99,14 @@ FxResource = new Class({ Extends: Resource,
   },
 
   onSelectItemElement: function(memo) {
-    if ($defined(this.selectedElement)) {
+    if (!this.multiSelect && $defined(this.selectedElement)) {
       this.selectedElement.removeClass(this.selectedClass);
     }
-    memo.el.addClass(this.selectedClass);
+    if (this.multiSelect) {
+      memo.el.toggleClass(this.selectedClass);
+    } else {
+      memo.el.addClass(this.selectedClass);
+    }
     this.selectedElement = memo.el;
     this.onSelect(memo.id);
   },
@@ -156,7 +161,8 @@ Iterations = new Class({ Extends: FxResource,
 
 Stories = new Class({ Extends: FxResource,
 
-  title: 'UserStory',
+  title:        'UserStory',
+  multiSelect:  true,
 
   initialize: function() {
     this.configure({ type: 'stories', root: 'story' });

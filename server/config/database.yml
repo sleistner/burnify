@@ -13,8 +13,7 @@ test:
   database: burndown_test
   <<: *defaults
 
-# production:
-#   <<: *defaults
-#   database: burndown_production
-#   username: wltest
-#   password: wltest
+production:
+  database: burndown_production
+#  database: burndown_development
+  <<: *defaults
