@@ -18,7 +18,7 @@ burnify.status.StatusBar = new function() {
   });
 
   document.addEvent('status:show:loading', function() {
-    burnify.status.StatusBar.showMessage('loading <img align="top" border="0" alt="loading" src="/images/statusbar-loading.gif"/>', -1);
+    burnify.status.StatusBar.showMessage('loading <img align="top" border="0" alt="" src="/images/statusbar-loading.gif"/>', -1);
   });
 
   document.addEvent('status:hide', function() {
@@ -38,9 +38,9 @@ burnify.status.StatusBar = new function() {
     duration = $defined(duration) ? duration*1000 : 6000;
     if (message != null) {
       divIDs.each(function(id) {
-        cancelClearEffects(id);
-        $(id).innerHTML = message;
+        $(id).innerHTML = '<nobr>' + message + '</nobr>';
         $(id).setStyle('opacity', '1.0');
+        cancelClearEffects(id);
         var effect = new Fx.Morph(id, {duration: 'short', transition: Fx.Transitions.Sine.easeOut});
         effect.start({ 'background-color': ['#ffff00', '#f0f0f0'] });
       });
