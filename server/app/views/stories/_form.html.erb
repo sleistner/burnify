@@ -1,0 +1,40 @@
+
+<p id="story_project_error" class="error"></p>
+
+<p>
+  <label for="story_name">Name</label>
+  <%= f.text_field 'name' %>
+</p>
+<p id="story_name_error" class="error"></p>
+
+<p>
+  <label for="story_description">Description</label>
+  <%= f.text_area 'description', :size => "40x3" %>
+</p>
+<p id="story_description_error" class="error"></p>
+
+<p>
+  <label for="story_color">Color</label>
+  <%= f.text_field 'color' %>
+</p>
+<p id="story_color_error" class="error"></p>
+
+<p>
+  <label for="story_estimated_hours">Estimated Hours</label>
+  <%= f.text_field 'estimated_hours' %>
+</p>
+<p id="story_estimated_hours_error" class="error"></p>
+
+<p>
+  <label for="story_start_at">Start</label>
+  <%= f.text_field 'start_at', :size => 10, :class => 'jquery-ui-datepicker' %>
+</p>
+<p id="story_start_at_error" class="error"></p>
+
+<p>
+  <label for="story_deadline">Deadline</label>
+  <%= f.text_field 'deadline', :size => 10, :class => 'jquery-ui-datepicker' %>
+</p>
+<p id="story_deadline_error" class="error"></p>
+
+<p id="story_base_error" class="error"></p>
