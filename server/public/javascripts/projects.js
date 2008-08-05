@@ -168,8 +168,9 @@ Stories = new Class({ Extends: FxResource,
     this.configure({ type: 'stories', root: 'story' });
     document.addEvent('project:changed',   this.onProjectChanged.bind(this));
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
-    document.addEvent('story:edit',        this.onStoryEdit.bind(this));
+    // document.addEvent('story:edit',        this.onStoryEdit.bind(this));
     document.addEvent('stories:update',    this.onIterationChanged.bind(this));
+    document.addEvent('story:changed',     this.createAndShowHistoryDialog.bind(this));
     this.render([]);
   },
 
@@ -181,9 +182,16 @@ Stories = new Class({ Extends: FxResource,
     this.load('/iterations/' + (iteration_id || iterations.getSelectedId()) + '/' + this.type);
   },
 
-  onStoryEdit: function(story_id) {
-    createAndShowHistoryDialog(story_id);
+  createAndShowHistoryDialog: function(story_id) {
+    new Request.JSON({ url: '/stories/' + (story_id || this.selectedId) + '/working_days',
+      method: 'get',
+      onComplete: function(working_days) {
+        var dialog = new HistoryDialog(story_id, working_days);
+        dialog.show();
+      }
+    }).send();
   }
+
 });
 
 
@@ -276,16 +284,6 @@ HistoryDialog = new Class({
 
 });
 
-function createAndShowHistoryDialog(story_id) {
-  new Request.JSON({ url: '/stories/' + story_id + '/working_days',
-    method: 'get',
-    onComplete: function(working_days) {
-      var dialog = new HistoryDialog(story_id, working_days);
-      dialog.show();
-    }
-  }).send();
-};
-
 
 
 
@@ -358,6 +356,10 @@ function DestroyIteration(resource_url) {
   DestroyResource(resource_url, 'iteration');
 }
 
+function DestroyStory(resource_url) {
+  DestroyResource(resource_url, 'story');
+}
+
 
 function LoadAjaxDialog(url) {
   jQuery(document).bind('reveal.facebox', function(){ initializeJQueryUIDatePicker(); });
@@ -383,4 +385,6 @@ window.addEvent('domready', function() {
 
   document.addEvent('story:create',       function(resource)    { LoadAjaxDialog('/stories/new'); })
   document.addEvent('story:save',         SaveStory);
+  document.addEvent('story:edit',         function(resource)    { LoadAjaxDialog('/stories/edit/' + resource); });
+  document.addEvent('story:destroy',      DestroyStory);
 });
