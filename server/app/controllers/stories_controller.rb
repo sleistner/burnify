@@ -2,6 +2,8 @@ class StoriesController < ApplicationController
 
   acts_as_resource_controller :belongs_to => :iteration
 
+  layout false
+
   def working_days
     render_formats Story.find(params[:id]).chart_data
   end

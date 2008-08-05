@@ -24,7 +24,6 @@ function $namespace() {
   return o;
 };
 
-
 var $break = { };
 
 Array.implement({
@@ -75,6 +74,10 @@ String.implement({
   
   toDate: function() { 
     return new Date(this.replace(/-/g, '/'));
+  },
+
+  pluralize: function() {
+    return this.replace(/y$/, 'ie') + 's';
   }
 });
 

@@ -169,6 +169,7 @@ Stories = new Class({ Extends: FxResource,
     document.addEvent('project:changed',   this.onProjectChanged.bind(this));
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
     document.addEvent('story:edit',        this.onStoryEdit.bind(this));
+    document.addEvent('stories:update',    this.onIterationChanged.bind(this));
     this.render([]);
   },
 
@@ -177,7 +178,7 @@ Stories = new Class({ Extends: FxResource,
   },
 
   onIterationChanged: function(iteration_id) {
-    this.load('/iterations/' + iteration_id + '/' + this.type);
+    this.load('/iterations/' + (iteration_id || iterations.getSelectedId()) + '/' + this.type);
   },
 
   onStoryEdit: function(story_id) {
@@ -302,7 +303,7 @@ function SaveResource(form, resource_type, url) {
     method:     form.method,
     onSuccess:  function(json, text, location) {
       jQuery(document).trigger('close.facebox');
-      document.fireEvent(resource_type+'s:update');
+      document.fireEvent(resource_type.pluralize() + ':update');
     },
     onFailure:  function(xhr, json) {
       $H(json).each(function(msg, field){
@@ -328,6 +329,10 @@ function SaveIteration(form) {
   SaveResource(form, 'iteration', '/projects/'+projects.getSelectedId()+form.getProperty('action'));
 }
 
+function SaveStory(form) {
+  SaveResource(form, 'story', '/iterations/'+iterations.getSelectedId()+form.getProperty('action'));
+}
+
 
 function DestroyResource(resource_url, resource_type) {
   if (confirm('Are you sure ?')) {
@@ -336,7 +341,7 @@ function DestroyResource(resource_url, resource_type) {
       method:     'DELETE',
       onSuccess:  function(json, text, location) {
         jQuery(document).trigger('close.facebox');
-        document.fireEvent(resource_type+'s:update');
+        document.fireEvent(resource_type.pluralize()+':update');
       },
       onFailure:  function(xhr, json) {
         console.warn(json);
@@ -376,5 +381,6 @@ window.addEvent('domready', function() {
   document.addEvent('iteration:save',     SaveIteration);
   document.addEvent('iteration:destroy',  DestroyIteration);
 
-  document.addEvent('story:create',       function(resource)    { console.info('CREATE '+resource); });
+  document.addEvent('story:create',       function(resource)    { LoadAjaxDialog('/stories/new'); })
+  document.addEvent('story:save',         SaveStory);
 });
