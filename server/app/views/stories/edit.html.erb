@@ -1,0 +1,17 @@
+<div id="edit_story_dialog" class="dialog">
+
+  <h1>Edit Story</h1>
+
+  <% form_for @story do |f| %>
+
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <p>
+      <%= f.submit 'Save', :onclick => 'try{document.fireEvent("story:save", this.form)}catch(ex){console.error(ex)};return false' %>
+      <span class="label">or</span>
+      <%= f.submit 'Delete', :onclick => 'try{document.fireEvent("story:destroy", this.form.action)}catch(ex){console.error(ex)};return false' %>
+    </p>
+
+  <% end %>
+
+</div>
