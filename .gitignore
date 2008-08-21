@@ -5,3 +5,4 @@ server/db/schema.rb
 server/db/schema.rb
 server/public/javascripts/all.js
 server/public/stylesheets/all.css
+.*.swp

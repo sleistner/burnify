@@ -15,3 +15,6 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+# Redirect database query logging to an alternate logfile
+ActiveRecord::Base.logger = Logger.new("#{RAILS_ROOT}/log/#{RAILS_ENV}_database.log")

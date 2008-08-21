@@ -18,8 +18,8 @@ class Iteration < ActiveRecord::Base
   include Chartify
   include StartAtAndDeadline
 
-  belongs_to :project
-  has_many :stories
+  belongs_to  :project
+  has_many    :stories
   
   validates_presence_of :name
   validates_presence_of :start_at
@@ -36,7 +36,7 @@ class Iteration < ActiveRecord::Base
   
   def chart_data_with_extension
     returning chart_data_without_extension do |chart_data|
-      stories.each { |stary| (chart_data[:stories] ||= []) << stary.chart_data }
+      stories.each {|story| (chart_data[:stories] ||= []) << story.chart_data }
     end
   end
   

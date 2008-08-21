@@ -1,3 +1,6 @@
+var projects;
+var iterations;
+var stories;
 
 Resource = new Class({
 
@@ -75,7 +78,6 @@ FxResource = new Class({ Extends: Resource,
   },
 
   createItemElement: function(it) {
-    // var el      = new Element('div', { 'class': this.liClass, style: 'background: '+it.color }).appendText(it.name);
     var el      = new Element('div', { 'class': this.liClass }).appendText(it.name.abbreviate(0, 30));
     var overfxs = new Fx.Morph(el, { duration: 300, link: 'cancel' });
     var initfxs = new Fx.Tween(el, { duration: this.fadeDuration, link: 'cancel' });
@@ -388,3 +390,4 @@ window.addEvent('domready', function() {
   document.addEvent('story:edit',         function(resource)    { LoadAjaxDialog('/stories/edit/' + resource); });
   document.addEvent('story:destroy',      DestroyStory);
 });
+
