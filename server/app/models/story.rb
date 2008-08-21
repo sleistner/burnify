@@ -49,7 +49,7 @@ class Story < ActiveRecord::Base
   end
 
   def hours_left_on day
-    histories.find_by_day(day).hours_left rescue nil
+    histories.find_by_day(day.strftime('%Y-%m-%d')).hours_left rescue nil
   end
 
   def set_hours_left day, hours_left
