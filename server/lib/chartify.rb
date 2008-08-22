@@ -1,6 +1,6 @@
 module Chartify
 
-  def chart_data
+  def init_chart_data
     returning Hash.new do |h|
       h[:type]            = self.class.name
       h[:title]           = name
@@ -9,9 +9,7 @@ module Chartify
       h[:deadline]        = deadline
       h[:color]           = color
       h[:id]              = id
-      working_days.each do |day| 
-        (h[:days] ||= []) << { :day => day.strftime('%Y-%m-%d'), :hours_left => hours_left_on(day) }
-      end
+      yield(h)
     end
   end
 
@@ -20,4 +18,11 @@ module Chartify
     (start_at.to_datetime..deadline.to_datetime).reject {|day| events.include?(day) || [0, 6].include?(day.wday) }
   end
 
+  def working_date_of_days
+    working_days.map {|day| date_of_day(day) }
+  end
+
+  def date_of_day(day)
+    day.strftime('%Y-%m-%d')
+  end
 end
