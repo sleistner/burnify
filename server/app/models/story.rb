@@ -36,7 +36,19 @@ class Story < ActiveRecord::Base
   def deadline
     read_attribute(:deadline) || iteration.deadline
   end
-  
+
+  def chart_data
+    init_chart_data do |cdata|
+
+      wdays = working_date_of_days
+      days  = histories.all :conditions => ['day IN (?)', wdays], :order => 'day'
+
+      hours_left   = Hash[*days.map {|hi| [date_of_day(hi.day), hi.hours_left] }.flatten]
+      cdata[:days] = wdays.map {|day| { :day => day, :hours_left => hours_left[day] }}
+    end
+  end
+
+=begin
   def progress_on day
     returning Progress.new do |progress|
       if hours_left = hours_left_on(day)
@@ -47,15 +59,17 @@ class Story < ActiveRecord::Base
       end
     end
   end
+=end
 
   def hours_left_on day
-    histories.find_by_day(day.strftime('%Y-%m-%d')).hours_left rescue nil
+    histories.find_by_day(day.is_a?(DateTime) ? date_of_day(day) : day).hours_left rescue nil
   end
 
   def set_hours_left day, hours_left
     histories.find_or_create_by_day(day).update_attributes! :hours_left => hours_left
   end
 
+=begin
   private
 
     class Progress
@@ -65,6 +79,7 @@ class Story < ActiveRecord::Base
 
       def empty?; @empty end
       
-    end#Progress
+    end
+=end
     
-end#Story
+end

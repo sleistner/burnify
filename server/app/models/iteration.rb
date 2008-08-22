@@ -33,24 +33,53 @@ class Iteration < ActiveRecord::Base
       errors.add(:deadline, "should be greater then #{start_at}.") if deadline < start_at
     end
   end
-  
-  def chart_data_with_extension
-    returning chart_data_without_extension do |chart_data|
-      stories.each {|story| (chart_data[:stories] ||= []) << story.chart_data }
+
+  def chart_data
+    init_chart_data do |cdata|
+      wdays = working_date_of_days
+
+      story_ids = [] # contains all story ids for this iteration
+      _stories  = {} # fast access to a story by id
+
+      stories.each do |story|
+        story_ids << story.id
+        _stories[story.id] = story
+      end
+
+      stories_days = StoryHistory.all :conditions => ['story_id in (?) AND day IN (?)', story_ids, wdays], :order => 'day'
+
+      hm = {} # all histories of stories_days => hm[day][story_id] => history
+      sh = {} # contains for each story the sorted list of histories
+
+      stories_days.each do |history|
+        (hm[date_of_day(history.day)] ||= {})[history.story_id] = history
+        (sh[history.story_id] ||= []) << history
+      end
+
+      progress_on = lambda do |day, story_id|
+        (hm[day][story_id].hours_left rescue sh[story_id].last.hours_left) rescue _stories[story_id].estimated_hours
+      end
+
+      cdata[:days] = wdays.map do |wday|
+        hours = hm[wday].values.map(&:hours_left).compact rescue []
+        hours = story_ids.map {|story_id| progress_on.call(wday, story_id) } unless hours.empty?
+        #puts "------>>> #{wday} <<<---->>> #{hours.join ', '}"
+        { :day => wday, :hours_left => (hours.empty? ? nil : hours.sum) }
+      end
+
+      cdata[:stories] = stories.map &:chart_data # TODO please remove -- lazy load story data only if needed (on demand)
     end
   end
-  
-  alias_method_chain :chart_data, :extension
 
-  private
+  def estimated_hours
+    stories.sum('estimated_hours')
+  end
 
-    def estimated_hours
-      stories.map(&:estimated_hours).sum
-    end
-    
-    def hours_left_on day
-      progresses = stories.map { |story| story.progress_on day }
-      progresses.all?(&:empty?) ? nil : progresses.map(&:hours_left).sum
-    end
+=begin  
+  def hours_left_on day
+    progresses = stories.map { |story| story.progress_on day }
+    progresses.all?(&:empty?) ? nil : progresses.map(&:hours_left).sum
+  end
+=end
 
 end
