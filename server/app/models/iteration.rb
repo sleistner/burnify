@@ -36,7 +36,7 @@ class Iteration < ActiveRecord::Base
 
   def chart_data
     init_chart_data do |cdata|
-      wdays = working_date_of_days
+      cdata[:estimated_hours] = stories.map(&:estimated_hours).sum
 
       story_ids = [] # contains all story ids for this iteration
       _stories  = {} # fast access to a story by id
@@ -46,9 +46,10 @@ class Iteration < ActiveRecord::Base
         _stories[story.id] = story
       end
 
-      stories_days = StoryHistory.all :conditions => ['story_id in (?) AND day IN (?)', story_ids, wdays], :order => 'day'
+      wdays = working_date_of_days
+      stories_days = StoryHistory.all :conditions => ['story_id IN (?) AND day IN (?)', story_ids, wdays], :order => 'day'
 
-      hm = {} # all histories of stories_days => hm[day][story_id] => history
+      hm = {} # all histories from stories_days => hm[day][story_id] => history
       sh = {} # contains for each story the sorted list of histories
 
       stories_days.each do |history|
