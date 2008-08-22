@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080617193638) do
+ActiveRecord::Schema.define(:version => 20080822101519) do
 
   create_table "calendars", :force => true do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20080617193638) do
     t.integer  "story_id",   :limit => 11
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "day"
+    t.date     "day"
   end
 
   add_index "story_histories", ["story_id"], :name => "fk_story_histories_stories"
