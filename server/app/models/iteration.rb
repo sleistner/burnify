@@ -62,8 +62,9 @@ class Iteration < ActiveRecord::Base
 
       cdata[:days] = wdays.map do |wday|
         hours = hm[wday].values.map(&:hours_left).compact rescue []
-        hours = story_ids.map {|story_id| progress_on.call(wday, story_id) } unless hours.empty?
-        #puts "------>>> #{wday} <<<---->>> #{hours.join ', '}"
+        unless hours.empty? || hours.size == story_ids.size
+          hours = story_ids.map {|story_id| progress_on.call(wday, story_id) }
+        end
         { :day => wday, :hours_left => (hours.empty? ? nil : hours.sum) }
       end
 
