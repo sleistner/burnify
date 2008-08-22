@@ -48,19 +48,6 @@ class Story < ActiveRecord::Base
     end
   end
 
-=begin
-  def progress_on day
-    returning Progress.new do |progress|
-      if hours_left = hours_left_on(day)
-        progress.hours_left = hours_left
-        progress.empty = false
-      else
-        progress.hours_left = histories.sort.last.hours_left rescue estimated_hours
-      end
-    end
-  end
-=end
-
   def hours_left_on day
     histories.find_by_day(day.is_a?(DateTime) ? date_of_day(day) : day).hours_left rescue nil
   end
@@ -68,18 +55,4 @@ class Story < ActiveRecord::Base
   def set_hours_left day, hours_left
     histories.find_or_create_by_day(day).update_attributes! :hours_left => hours_left
   end
-
-=begin
-  private
-
-    class Progress
-      attr_accessor :hours_left, :empty
-    
-      def initialize; @empty = true end
-
-      def empty?; @empty end
-      
-    end
-=end
-    
 end
