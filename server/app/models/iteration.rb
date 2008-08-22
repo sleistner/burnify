@@ -76,11 +76,4 @@ class Iteration < ActiveRecord::Base
     stories.sum('estimated_hours')
   end
 
-=begin  
-  def hours_left_on day
-    progresses = stories.map { |story| story.progress_on day }
-    progresses.all?(&:empty?) ? nil : progresses.map(&:hours_left).sum
-  end
-=end
-
 end
