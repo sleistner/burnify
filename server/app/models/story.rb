@@ -39,6 +39,7 @@ class Story < ActiveRecord::Base
 
   def chart_data
     init_chart_data do |cdata|
+      cdata[:estimated_hours] = estimated_hours
 
       wdays = working_date_of_days
       days  = histories.all :conditions => ['day IN (?)', wdays], :order => 'day'

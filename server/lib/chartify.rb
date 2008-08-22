@@ -4,7 +4,7 @@ module Chartify
     returning Hash.new do |h|
       h[:type]            = self.class.name
       h[:title]           = name
-      h[:estimated_hours] = estimated_hours
+      #h[:estimated_hours] = estimated_hours
       h[:start_at]        = start_at
       h[:deadline]        = deadline
       h[:color]           = color
