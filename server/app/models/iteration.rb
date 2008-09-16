@@ -58,6 +58,7 @@ class Iteration < ActiveRecord::Base
       end
 
       progress_on = lambda do |day, story_id|
+        return _stories[story_id].estimated_hours if _stories[story_id].start_at && Date.parse(day) < _stories[story_id].start_at.to_date
         (hm[day][story_id].hours_left rescue sh[story_id].last.hours_left) rescue _stories[story_id].estimated_hours
       end
 
