@@ -1,0 +1,6 @@
+[submodule "server/vendor/plugins/shoulda"]
+	path = server/vendor/plugins/shoulda
+	url = git://github.com/thoughtbot/shoulda.git
+[submodule "server/vendor/plugins/acts_as_resource_controller"]
+	path = server/vendor/plugins/acts_as_resource_controller
+	url = git://github.com/sleistner/acts_as_resource_controller.git
