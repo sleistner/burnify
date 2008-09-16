@@ -69,15 +69,19 @@ Chart = new Class({
   drawGridLines: function() {
     this.context.lineWidth = .06;
     
-    for(var i = 0; i < this.max_x; i++) {
+    for (var i = 0; i <= this.max_x; i++) {
       var x = this.gap + (i * this.step_x);
-      var label = this.data.days[i].day.toDate().strftime('%d.%m');
-      this.context.beginPath();
-      this.context.moveTo(x, 0);
-      this.context.lineTo(x, this.axis_height + (this.gap / 2));
-      this.context.stroke();
-      this.context.drawText(this.font, this.fontsize, x - (this.gap / 2), this.axis_height + (this.gap / (i % 2 == 0 ? 2.3 : 1.3)), label);
-      this.context.save();
+
+      if (i != this.max_x) {
+        this.context.beginPath();
+        this.context.moveTo(x, 0);
+        this.context.lineTo(x, this.axis_height + (this.gap / 2));
+        this.context.stroke();
+      }
+      if (i > 0) {
+        var label = this.data.days[i-1].day.toDate().strftime('%d.%m');
+        this.context.drawText(this.font, this.fontsize, x - this.gap - 1, this.axis_height + (this.gap / (i % 2 == 0 ? 2.3 : 1.3)), label);
+      }
     }
 
     for (var i = this.steps_y; i >= 0; i--) {
@@ -86,8 +90,7 @@ Chart = new Class({
       this.context.moveTo(this.gap / 2, y);
       this.context.lineTo(this.gap + this.axis_width, y);
       this.context.stroke();
-      this.context.drawText(this.font, this.fontsize, 5, y + (this.fontsize / 2), label);
-      this.context.save();
+      this.context.drawText(this.font, this.fontsize, 5, y + (this.fontsize) + 1, label);
     }
   },
   
@@ -97,28 +100,27 @@ Chart = new Class({
     this.context.lineWidth = .5;
     var first_day_with_history = this.firstDayWithHistory(data.days).day;
     if (first_day_with_history != this.iteration_start_at) {
-      this.context.moveTo(this.positionX(this.iteration_start_at), this.positionY(data.estimated_hours));
-      this.context.lineTo(this.positionX(first_day_with_history), this.positionY(data.estimated_hours));
+      this.context.moveTo(this.positionX(this.iteration_start_at) - this.step_x, this.positionY(data.estimated_hours));
+      this.context.lineTo(this.positionX(first_day_with_history) - this.step_x, this.positionY(data.estimated_hours));
     }
-    this.context.moveTo(this.positionX(first_day_with_history), this.positionY(data.estimated_hours));
+    this.context.moveTo(this.positionX(first_day_with_history) - this.step_x, this.positionY(data.estimated_hours));
     this.context.lineTo(this.positionX(data.days.getLast().day), this.positionY(0));
     this.context.stroke();
-    this.context.save();
   },
   
   drawDevelopingLine: function(data) {
-    if (prev = this.firstDayWithHistory(data.days)) {
+    if (first_day = this.firstDayWithHistory(data.days)) {
       this.context.lineWidth = 2;
       this.context.strokeStyle = data.color;
 
-      this.filterDays(data.days).each(function(e) {
-        this.context.beginPath();
-        this.context.moveTo(this.positionX(prev.day), this.positionY(prev.hours_left));
+      this.context.beginPath();
+      this.context.moveTo(this.positionX(first_day.day) - this.step_x, this.positionY(data.estimated_hours));
+
+      this.daysWithHoursLeft(data.days).each(function(e) {
         this.context.lineTo(this.positionX(e.day), this.positionY(e.hours_left));
-        this.context.stroke();
-        this.context.save();
-        prev = e;
       }, this);
+
+      this.context.stroke();
     }
   },
   
@@ -142,7 +144,7 @@ Chart = new Class({
   
   positionX: function(value) {
     var entry = this.data.days.detect(function(e) { return e.day == value });
-    return this.gap + (this.data.days.indexOf(entry) * this.step_x);
+    return this.gap + ((this.data.days.indexOf(entry) + 1) * this.step_x);
   },
   
   positionY: function(value) {
@@ -159,7 +161,7 @@ Chart = new Class({
     this.data = data;
     this.max_x = this.data.days.length;
     this.step_x = this.axis_width / this.max_x;
-    this.rated_days = this.filterDays(this.data.days);
+    this.rated_days = this.daysWithHoursLeft(this.data.days);
     this.max_hours = this.rated_days.map(function(e) { return e.hours_left }).sort(function(a, b) { return a - b }).getLast() + 10;
     this.max_y = Math.max(this.data.estimated_hours, this.max_hours);
     this.step_y = 10;
@@ -173,7 +175,7 @@ Chart = new Class({
     }) || days[0];
   },
   
-  filterDays: function(days) {
+  daysWithHoursLeft: function(days) {
     return days.filter(function(e) { return e.hours_left != null });
   },
   

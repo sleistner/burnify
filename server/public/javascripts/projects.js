@@ -83,6 +83,7 @@ FxResource = new Class({ Extends: Resource,
     var initfxs = new Fx.Tween(el, { duration: this.fadeDuration, link: 'cancel' });
 
     el.addEvent('click', this.onSelectItemElement.bind(this, { el: el, id: it.id }));
+    el.addEvent('dblclick', this.onDblClick.bind(this, it.id));
     el.addEvent('mouseenter', function(e) { overfxs.start('.item_hover'); el.setStyle('cursor', 'pointer') });
     el.addEvent('mouseleave', function(e) { overfxs.start('.item_none');  el.setStyle('cursor', 'auto') });
 
@@ -111,6 +112,10 @@ FxResource = new Class({ Extends: Resource,
     }
     this.selectedElement = memo.el;
     this.onSelect(memo.id);
+  },
+
+  onDblClick: function(id) {
+    document.fireEvent(this.root + ':dblclicked', id);
   },
 
   onCreate: function(resource) {
@@ -172,7 +177,8 @@ Stories = new Class({ Extends: FxResource,
     document.addEvent('iteration:changed', this.onIterationChanged.bind(this));
     // document.addEvent('story:edit',        this.onStoryEdit.bind(this));
     document.addEvent('stories:update',    this.onIterationChanged.bind(this));
-    document.addEvent('story:changed',     this.createAndShowHistoryDialog.bind(this));
+    //document.addEvent('story:changed',     this.createAndShowHistoryDialog.bind(this));
+    document.addEvent('story:dblclicked',     this.createAndShowHistoryDialog.bind(this));
     this.render([]);
   },
 
