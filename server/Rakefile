@@ -8,3 +8,18 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
+
+
+
+task :foo do
+
+  def ask(what, default = nil)
+    print %Q{#{what}#{default.nil? ? '' : " [#{default}]"}> }
+    x = STDIN.gets.chomp.strip
+    x == '' ? (default.nil? ? ask(what) : default) : x
+  end
+
+  foo = ask 'type something in'
+  puts "you said '#{foo}'"
+
+end
