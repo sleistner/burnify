@@ -5,11 +5,15 @@ ActionView::Helpers::AssetTagHelper::register_javascript_expansion :burnify => [
   'jquery-1.2.6.min',
   'facebox',
   'jquery-ui-datepicker-1.5.1.min',
-  'moo-rainbow',
-  'canvastext',
-  'charts',
+#  'canvastext',
+#  'charts',
   'application',
   'strftime',
   'statusbar',
   'projects'
+]
+ActionView::Helpers::AssetTagHelper::register_javascript_expansion :bluff => [
+  'bluff/excanvas.js',
+  'bluff/js-class.js',
+  'bluff/bluff-min.js'
 ]
