@@ -5,16 +5,11 @@ body, div {
 
 #burndown {
   margin: 20px 0 30px 0;
+  text-align: center;
 }
 
-#burndown div {
-  margin: 0 auto;
-  width: 600px;
-}
-
-canvas {
-  margin: 0;
-  padding: 0;
+#burndown > .bluff-wrapper {
+  margin: auto auto;
 }
 
 div#controls {

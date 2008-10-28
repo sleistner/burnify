@@ -10,10 +10,11 @@ ActionView::Helpers::AssetTagHelper::register_javascript_expansion :burnify => [
   'application',
   'strftime',
   'statusbar',
-  'projects'
+  'projects',
+  'bluff-burndown-chart'
 ]
 ActionView::Helpers::AssetTagHelper::register_javascript_expansion :bluff => [
   'bluff/excanvas.js',
   'bluff/js-class.js',
-  'bluff/bluff-min.js'
+  'bluff/bluff-src.js'
 ]

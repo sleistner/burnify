@@ -70,7 +70,8 @@ class Iteration < ActiveRecord::Base
         { :day => wday, :hours_left => (hours.empty? ? nil : hours.sum) }
       end
 
-      cdata[:stories] = stories.map &:chart_data # TODO please remove -- lazy load story data only if needed (on demand)
+      #cdata[:stories] = stories.map &:chart_data # TODO please remove -- lazy load story data only if needed (on demand)
+      cdata[:project] = { :name => project.name, :id => project_id }
     end
   end
 
