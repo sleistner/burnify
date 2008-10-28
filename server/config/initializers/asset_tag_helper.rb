@@ -11,5 +11,6 @@ ActionView::Helpers::AssetTagHelper::register_javascript_expansion :burnify => [
   'application',
   'strftime',
   'statusbar',
-  'projects'
+  'projects',
+  'replay'
 ]

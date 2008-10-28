@@ -9,6 +9,7 @@
   <%= stylesheet_link_tag :all, :cache => true %>
 </head>
 <body>
+<span id="replay" style="display:none;"><%= flash[:replay] %></span>
 <%= yield %>
 </body>
 </html>
