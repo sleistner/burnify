@@ -53,7 +53,7 @@ burnify.chart.BurnifyChart = new Class({
     //var graph_data = iteration.days.map(function(day){ return day.hours_left });
     g.data(iteration.title, graph_data, iteration.color);
 
-    g.data('ideal', [iteration.estimated_hours, null, null, 0], '#cccccc');
+    //g.data('ideal', [iteration.estimated_hours, null, null, 0], '#cccccc');
 
     g.minimum_value = 0;
     g.maximum_value = iteration.estimated_hours;

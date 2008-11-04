@@ -781,13 +781,13 @@ Bluff.Base = new JS.Class({
   // Draws column labels below graph, centered over x_offset
   //--
   // TODO Allow WestGravity as an option
-  _draw_label: function(x_offset, index) {
+  _draw_label: function(x_offset, index, y_versatz) {
     if (this.hide_line_markers) return;
     
     var y_offset;
     
     if (this.labels[index] && !this._labels_seen[index]) {
-      y_offset = this._graph_bottom + this.klass.LABEL_MARGIN;
+      y_offset = this._graph_bottom + this.klass.LABEL_MARGIN + (y_versatz == undefined ? 0 : y_versatz);
       
       this._d.fill = this.font_color;
       if (this.font) this._d.font = this.font;
@@ -1230,15 +1230,21 @@ Bluff.Line = new JS.Class(Bluff.Base, {
     }
     
     Bluff.each(this._norm_data, function(data_row) {
-        console.log(data_row);
+      //console.log(data_row);
       var prev_x = null, prev_y = null;
-      
+      var last_x_with_data = null;
+
       Bluff.each(data_row[this.klass.DATA_VALUES_INDEX], function(data_point, index) {
         var new_x = this._graph_left + (this.x_increment * index);
-        if (data_point === undefined) return;
+
+        this._draw_label(new_x, index, (index % 2 == 0 ? 0 : this.legend_font_size));
         
-        this._draw_label(new_x, index);
-        
+        if (data_point === undefined || data_point == null) {
+          prev_x = last_x_with_data || new_x;
+          return;
+        }
+
+        last_x_with_data = new_x;
         var new_y = this._graph_top + (this._graph_height - data_point * this._graph_height);
         
         // Reset each time to avoid thin-line errors
