@@ -49,11 +49,16 @@ burnify.chart.BurnifyChart = new Class({
     });
     g.labels = labels;
    
+    /*
+    var ideal_data = new Array(iteration.days.length);
+    ideal_data[0] = iteration.estimated_hours;
+    ideal_data[iteration.days.length-1] = 0;
+    g.data('ideal', ideal_data, '#cccccc');
+    */
+
     var graph_data = this.compactGraphData(iteration.days.map(function(day){ return day.hours_left }));
     //var graph_data = iteration.days.map(function(day){ return day.hours_left });
     g.data(iteration.title, graph_data, iteration.color);
-
-    //g.data('ideal', [iteration.estimated_hours, null, null, 0], '#cccccc');
 
     g.minimum_value = 0;
     g.maximum_value = iteration.estimated_hours;
