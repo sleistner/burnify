@@ -26,7 +26,6 @@ window.addEvent('domready', function() {
     }
     
   } catch (ex) {
-    console.error(ex);
   }
 });
 
