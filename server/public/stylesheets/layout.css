@@ -1,0 +1,30 @@
+
+#header {
+  border: 0;
+  background: #ffffff;
+  font-family: arial,sans-serif;
+  font-size: 13px;
+}
+
+#main-content {
+  background:#FCFCFC url(/images/border2.gif) repeat-x scroll center top;
+}
+
+#footer {
+  clear: both;
+}
+
+#footer-content {
+  padding-top: 32px;
+}
+
+#footer-content > p {
+  border-top: 1px dashed #aaaab0;
+  padding-top: 2em;
+  padding-bottom: 3em;
+  margin-bottom: 0;
+  background: #FFFFFF url(/images/blue_gray_gradient.png) repeat-x scroll center top;
+  text-align: center;
+  font-family: arial,sans-serif;
+  font-size: 13px;
+}
